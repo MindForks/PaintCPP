@@ -68,7 +68,8 @@ namespace CourseWork {
 	private: System::Windows::Forms::Button^  erase;
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::CheckBox^  checkBox1;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  btnGroup;
+
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -95,6 +96,7 @@ namespace CourseWork {
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->btnGroup = (gcnew System::Windows::Forms::Button());
 			this->erase = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
@@ -107,7 +109,6 @@ namespace CourseWork {
 			this->pointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -120,9 +121,10 @@ namespace CourseWork {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->canvas->BackColor = System::Drawing::Color::White;
 			this->canvas->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->canvas->Location = System::Drawing::Point(12, 64);
+			this->canvas->Location = System::Drawing::Point(24, 123);
+			this->canvas->Margin = System::Windows::Forms::Padding(6);
 			this->canvas->Name = L"canvas";
-			this->canvas->Size = System::Drawing::Size(938, 413);
+			this->canvas->Size = System::Drawing::Size(1872, 791);
 			this->canvas->TabIndex = 0;
 			this->canvas->TabStop = false;
 			this->canvas->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBox1_MouseDown);
@@ -134,7 +136,7 @@ namespace CourseWork {
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Controls->Add(this->checkBox1);
-			this->panel1->Controls->Add(this->button1);
+			this->panel1->Controls->Add(this->btnGroup);
 			this->panel1->Controls->Add(this->erase);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->trackBar1);
@@ -145,30 +147,43 @@ namespace CourseWork {
 			this->panel1->Controls->Add(this->ellipse);
 			this->panel1->Controls->Add(this->rectangle);
 			this->panel1->Controls->Add(this->pointer);
-			this->panel1->Location = System::Drawing::Point(12, 12);
+			this->panel1->Location = System::Drawing::Point(24, 23);
+			this->panel1->Margin = System::Windows::Forms::Padding(6);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(938, 46);
+			this->panel1->Size = System::Drawing::Size(1876, 88);
 			this->panel1->TabIndex = 6;
 			// 
 			// checkBox1
 			// 
 			this->checkBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->checkBox1->Appearance = System::Windows::Forms::Appearance::Button;
-			this->checkBox1->Location = System::Drawing::Point(854, 3);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(2);
+			this->checkBox1->Location = System::Drawing::Point(1708, 6);
+			this->checkBox1->Margin = System::Windows::Forms::Padding(4);
 			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(82, 41);
+			this->checkBox1->Size = System::Drawing::Size(164, 79);
 			this->checkBox1->TabIndex = 8;
 			this->checkBox1->Text = L"Explode";
 			this->checkBox1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->checkBox1->UseVisualStyleBackColor = true;
 			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MainForm::checkBox1_CheckedChanged);
 			// 
+			// btnGroup
+			// 
+			this->btnGroup->Location = System::Drawing::Point(540, 6);
+			this->btnGroup->Margin = System::Windows::Forms::Padding(6);
+			this->btnGroup->Name = L"btnGroup";
+			this->btnGroup->Size = System::Drawing::Size(112, 79);
+			this->btnGroup->TabIndex = 7;
+			this->btnGroup->Text = L"Group";
+			this->btnGroup->UseVisualStyleBackColor = true;
+			this->btnGroup->Click += gcnew System::EventHandler(this, &MainForm::group_Click);
+			// 
 			// erase
 			// 
-			this->erase->Location = System::Drawing::Point(338, 3);
+			this->erase->Location = System::Drawing::Point(676, 6);
+			this->erase->Margin = System::Windows::Forms::Padding(6);
 			this->erase->Name = L"erase";
-			this->erase->Size = System::Drawing::Size(49, 41);
+			this->erase->Size = System::Drawing::Size(98, 79);
 			this->erase->TabIndex = 7;
 			this->erase->Text = L"Erase";
 			this->erase->UseVisualStyleBackColor = true;
@@ -179,9 +194,10 @@ namespace CourseWork {
 			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->label1->Location = System::Drawing::Point(521, 28);
+			this->label1->Location = System::Drawing::Point(1042, 54);
+			this->label1->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(243, 15);
+			this->label1->Size = System::Drawing::Size(486, 29);
 			this->label1->TabIndex = 6;
 			this->label1->Text = L"1";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -192,11 +208,12 @@ namespace CourseWork {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->trackBar1->AutoSize = false;
-			this->trackBar1->Location = System::Drawing::Point(521, 3);
+			this->trackBar1->Location = System::Drawing::Point(1042, 6);
+			this->trackBar1->Margin = System::Windows::Forms::Padding(6);
 			this->trackBar1->Maximum = 20;
 			this->trackBar1->Minimum = 1;
 			this->trackBar1->Name = L"trackBar1";
-			this->trackBar1->Size = System::Drawing::Size(243, 40);
+			this->trackBar1->Size = System::Drawing::Size(486, 77);
 			this->trackBar1->TabIndex = 5;
 			this->trackBar1->Value = 1;
 			this->trackBar1->Scroll += gcnew System::EventHandler(this, &MainForm::trackBar1_Scroll);
@@ -207,9 +224,10 @@ namespace CourseWork {
 			this->stroke->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->stroke->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->stroke->ForeColor = System::Drawing::Color::White;
-			this->stroke->Location = System::Drawing::Point(461, 2);
+			this->stroke->Location = System::Drawing::Point(922, 4);
+			this->stroke->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->stroke->Name = L"stroke";
-			this->stroke->Size = System::Drawing::Size(54, 41);
+			this->stroke->Size = System::Drawing::Size(106, 77);
 			this->stroke->TabIndex = 4;
 			this->stroke->Text = L"Stroke";
 			this->stroke->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -220,9 +238,10 @@ namespace CourseWork {
 			this->fill->BackColor = System::Drawing::Color::LightGray;
 			this->fill->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->fill->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->fill->Location = System::Drawing::Point(401, 3);
+			this->fill->Location = System::Drawing::Point(802, 6);
+			this->fill->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->fill->Name = L"fill";
-			this->fill->Size = System::Drawing::Size(54, 41);
+			this->fill->Size = System::Drawing::Size(106, 77);
 			this->fill->TabIndex = 4;
 			this->fill->Text = L"Fill";
 			this->fill->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -232,10 +251,10 @@ namespace CourseWork {
 			// 
 			this->deformation->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->deformation->Appearance = System::Windows::Forms::Appearance::Button;
-			this->deformation->Location = System::Drawing::Point(769, 3);
-			this->deformation->Margin = System::Windows::Forms::Padding(2);
+			this->deformation->Location = System::Drawing::Point(1538, 6);
+			this->deformation->Margin = System::Windows::Forms::Padding(4);
 			this->deformation->Name = L"deformation";
-			this->deformation->Size = System::Drawing::Size(85, 41);
+			this->deformation->Size = System::Drawing::Size(170, 79);
 			this->deformation->TabIndex = 2;
 			this->deformation->Text = L"Allow deformation";
 			this->deformation->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -245,10 +264,10 @@ namespace CourseWork {
 			// 
 			this->triangle->Appearance = System::Windows::Forms::Appearance::Button;
 			this->triangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->triangle->Location = System::Drawing::Point(195, 1);
-			this->triangle->Margin = System::Windows::Forms::Padding(2);
+			this->triangle->Location = System::Drawing::Point(390, 2);
+			this->triangle->Margin = System::Windows::Forms::Padding(4);
 			this->triangle->Name = L"triangle";
-			this->triangle->Size = System::Drawing::Size(64, 42);
+			this->triangle->Size = System::Drawing::Size(128, 81);
 			this->triangle->TabIndex = 0;
 			this->triangle->Text = L"Triangle";
 			this->triangle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -258,10 +277,10 @@ namespace CourseWork {
 			// 
 			this->ellipse->Appearance = System::Windows::Forms::Appearance::Button;
 			this->ellipse->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->ellipse->Location = System::Drawing::Point(126, 1);
-			this->ellipse->Margin = System::Windows::Forms::Padding(2);
+			this->ellipse->Location = System::Drawing::Point(252, 2);
+			this->ellipse->Margin = System::Windows::Forms::Padding(4);
 			this->ellipse->Name = L"ellipse";
-			this->ellipse->Size = System::Drawing::Size(64, 42);
+			this->ellipse->Size = System::Drawing::Size(128, 81);
 			this->ellipse->TabIndex = 0;
 			this->ellipse->Text = L"Ellipse";
 			this->ellipse->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -271,10 +290,10 @@ namespace CourseWork {
 			// 
 			this->rectangle->Appearance = System::Windows::Forms::Appearance::Button;
 			this->rectangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->rectangle->Location = System::Drawing::Point(57, 1);
-			this->rectangle->Margin = System::Windows::Forms::Padding(2);
+			this->rectangle->Location = System::Drawing::Point(114, 2);
+			this->rectangle->Margin = System::Windows::Forms::Padding(4);
 			this->rectangle->Name = L"rectangle";
-			this->rectangle->Size = System::Drawing::Size(64, 42);
+			this->rectangle->Size = System::Drawing::Size(128, 81);
 			this->rectangle->TabIndex = 0;
 			this->rectangle->Text = L"Rectangle";
 			this->rectangle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -285,10 +304,10 @@ namespace CourseWork {
 			this->pointer->Appearance = System::Windows::Forms::Appearance::Button;
 			this->pointer->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->pointer->Checked = true;
-			this->pointer->Location = System::Drawing::Point(2, 2);
-			this->pointer->Margin = System::Windows::Forms::Padding(2);
+			this->pointer->Location = System::Drawing::Point(4, 4);
+			this->pointer->Margin = System::Windows::Forms::Padding(4);
 			this->pointer->Name = L"pointer";
-			this->pointer->Size = System::Drawing::Size(48, 42);
+			this->pointer->Size = System::Drawing::Size(96, 81);
 			this->pointer->TabIndex = 0;
 			this->pointer->TabStop = true;
 			this->pointer->Text = L"Pointer";
@@ -300,24 +319,15 @@ namespace CourseWork {
 			this->timer1->Interval = 10;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(270, 3);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(56, 41);
-			this->button1->TabIndex = 7;
-			this->button1->Text = L"Group";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::group_Click);
-			// 
 			// MainForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(962, 489);
+			this->ClientSize = System::Drawing::Size(1924, 940);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->canvas);
 			this->KeyPreview = true;
+			this->Margin = System::Windows::Forms::Padding(6);
 			this->Name = L"MainForm";
 			this->Text = L"Course Work : Omelchenko Daniel PZ-13-1";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
@@ -478,8 +488,11 @@ namespace CourseWork {
 	}
 
 	private: System::Void MainForm_Resize(System::Object^  sender, System::EventArgs^  e) {
-		controller->Resize();
-		controller->Refresh();
+		if (controller != nullptr)
+		{
+			controller->Resize();
+			controller->Refresh();
+		}
 	}
 
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
