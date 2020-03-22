@@ -388,10 +388,6 @@ namespace CourseWork {
 		PointF^ create_pos;
 		Figure^ last_figure;
 
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	}
-
 	private: System::Void pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		create_pos = PointF(e->X, e->Y);
 		if (pointer->Checked) {
@@ -427,7 +423,7 @@ namespace CourseWork {
 		else if (ellipse->Checked) {
 			last_figure = (Figure^)(gcnew EllipseShape());
 		}
-		if (last_figure != nullptr) {
+		if (last_figure != nullptr && pointer->Checked == false) {
 			if (!multiselect) {
 				last_figure->Color = fill->BackColor;
 				last_figure->StrokeColor = stroke->BackColor;
@@ -599,8 +595,6 @@ namespace CourseWork {
 		for each (Snapshot^ var in controller->snapCarateker->SnaphotList)
 		{
 			this->lstSnapshots->Items->Add(var);
-			this->lstSnapshots->DisplayMember = "snapName";
-			this->lstSnapshots->ValueMember = "snapName";
 		}
 	}
 	
