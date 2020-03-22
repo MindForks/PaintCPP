@@ -339,12 +339,14 @@ namespace CourseWork {
 			// 
 			// lstSnapshots
 			// 
+			this->lstSnapshots->DisplayMember = L"snapName";
 			this->lstSnapshots->FormattingEnabled = true;
 			this->lstSnapshots->ItemHeight = 25;
 			this->lstSnapshots->Location = System::Drawing::Point(94, 138);
 			this->lstSnapshots->Name = L"lstSnapshots";
 			this->lstSnapshots->Size = System::Drawing::Size(345, 304);
 			this->lstSnapshots->TabIndex = 8;
+			this->lstSnapshots->ValueMember = L"snapName";
 			// 
 			// btnLoadFromLst
 			// 
@@ -369,7 +371,7 @@ namespace CourseWork {
 			this->KeyPreview = true;
 			this->Margin = System::Windows::Forms::Padding(6);
 			this->Name = L"MainForm";
-			this->Text = L"Course Work : Omelchenko Daniel PZ-13-1";
+			this->Text = L"Course Work : Savvin M. PZ-17-1";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MainForm::MainForm_KeyDown);
 			this->Resize += gcnew System::EventHandler(this, &MainForm::MainForm_Resize);
@@ -567,7 +569,7 @@ namespace CourseWork {
 	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < this->controller->figures->Count; i++) {
 			if (this->controller->figures[i]->IsSelected) {
-				System::String^ snapName =  "name" + i;
+				System::String^ snapName =  "Item ";
 				this->controller->snapCarateker->AddSnaphot(this->controller->figures[i], snapName);
 			}
 		}
@@ -575,13 +577,17 @@ namespace CourseWork {
 	}
 	
 	private: System::Void btnLoadFromLst_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (this->lstSnapshots->SelectedItem != nullptr)
+		if (this->lstSnapshots->SelectedIndex != -1)
 		{
-			Snapshot^ snap = (Snapshot^)(this->lstSnapshots->SelectedItem);
+			Snapshot^ snap = controller->snapCarateker->SnaphotList[lstSnapshots->SelectedIndex];
 			if (snap != nullptr)
 			{
-				controller->figures->Add(controller->snapCarateker->RestoreFromSnapshot(snap)->Copy());
+				controller->DeselectAll();
+				Figure^ figureToAdd = controller->snapCarateker->RestoreFromSnapshot(snap)->Copy();
+				figureToAdd->IsSelected = true;
+				controller->figures->Add(figureToAdd);
 				controller->Refresh();
+				UpdateLstSnaphots();
 			}
 		}
 	}
@@ -589,12 +595,14 @@ namespace CourseWork {
 	private: void UpdateLstSnaphots()
 	{
 		this->lstSnapshots->Items->Clear();
-		this->lstSnapshots->DisplayMember = "snapName";
-		this->lstSnapshots->ValueMember = "snapName";
+		//this->lstSnapshots->DisplayMember = "snapName";
+		//this->lstSnapshots->ValueMember = "snapName";
 
-		for each (Snapshot^ var in controller->snapCarateker->SnaphotList)
+		for(int i = 0; i < controller->snapCarateker->SnaphotList->Count; i++)
 		{
-			this->lstSnapshots->Items->Add(var);
+			Snapshot^ item = controller->snapCarateker->SnaphotList[i];
+			this->lstSnapshots->Items->Add((i+1) + " " +item->snapName);
+			this->lstSnapshots->SelectedIndex = -1;
 		}
 	}
 	

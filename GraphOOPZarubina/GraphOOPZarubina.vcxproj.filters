@@ -68,6 +68,9 @@
     <ClCompile Include="SnapshotCaretaker.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Snapshot.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

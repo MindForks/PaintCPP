@@ -41,8 +41,5 @@ namespace CourseWork {
 		System::String^ snapName;
 	};	
 
-	/*std::ostream& operator<<(std::ostream& out, const Snapshot^ r)
-	{
-		return out << "lol";
-	}*/
+	std::ostream& operator<<(std::ostream& out, const Snapshot^ r);
 }

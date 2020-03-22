@@ -152,6 +152,7 @@
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="RectangleShape.cpp" />
     <ClCompile Include="ShapeUnion.cpp" />
+    <ClCompile Include="Snapshot.cpp" />
     <ClCompile Include="SnapshotCaretaker.cpp" />
     <ClCompile Include="TriangleShape.cpp" />
   </ItemGroup>
