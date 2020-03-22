@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Figure.h"
+#include "SnapshotCaretaker.h"
 
 namespace CourseWork {
 	ref class CanvasController
@@ -16,6 +17,7 @@ namespace CourseWork {
 		CanvasController(PictureBox^ box);
 		List<Figure^>^ figures;
 		Figure^ getObject(PointF^ point);
+		SnapshotCaretaker^ snapCarateker;
 		void Explode();
 		void Refresh();
 		void Resize();

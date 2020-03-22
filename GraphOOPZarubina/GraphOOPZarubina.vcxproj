@@ -141,6 +141,8 @@
     </ClInclude>
     <ClInclude Include="RectangleShape.h" />
     <ClInclude Include="ShapeUnion.h" />
+    <ClInclude Include="Snapshot.h" />
+    <ClInclude Include="SnapshotCaretaker.h" />
     <ClInclude Include="TriangleShape.h" />
   </ItemGroup>
   <ItemGroup>
@@ -150,12 +152,16 @@
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="RectangleShape.cpp" />
     <ClCompile Include="ShapeUnion.cpp" />
+    <ClCompile Include="SnapshotCaretaker.cpp" />
     <ClCompile Include="TriangleShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,8 @@
 #ifndef FIGURE
 #define FIGURE
 
+#include "Snapshot.h"
+
 using namespace System;
 using namespace System::Collections;
 using namespace System::Collections::Generic;
@@ -39,8 +41,9 @@ namespace CourseWork {
 
 		Figure();
 		Figure(System::Drawing::Color color, System::Drawing::Color strokeColor);
+		Figure(Snapshot^ snap);
 		~Figure();
-	
+		Snapshot^ CreateSnapshot();
 		// properties:
 		virtual property System::Drawing::Color Color {
 			virtual System::Drawing::Color get() { return this->color; }

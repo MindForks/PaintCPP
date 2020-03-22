@@ -9,6 +9,7 @@ namespace CourseWork {
 		this->g = Graphics::FromImage(this->canvas);
 		this->background = gcnew Bitmap(box->Width, box->Height);
 		this->gb = Graphics::FromImage(this->background);
+		this->snapCarateker = gcnew SnapshotCaretaker();
 	}
 
 	Figure^ CanvasController::getObject(PointF^ point) {

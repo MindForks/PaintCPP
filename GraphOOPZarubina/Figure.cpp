@@ -25,9 +25,29 @@ namespace CourseWork {
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
+	Figure::Figure(Snapshot ^ snap)
+	{
+		this->color = snap->color;
+		this->strokeColor = snap->strokeColor;
+		this->strokeWidth = snap->strokeWidth;
+		this->position = snap->position;
+		this->height = snap->height;
+		this->width = snap->width;
+		this->pen = snap->pen;
+		this->brush = snap->brush;
+
+		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
+		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
+	}
+
 
 	Figure::~Figure()
 	{
+	}
+
+	Snapshot^ Figure::CreateSnapshot()
+	{
+		return gcnew Snapshot(color, strokeColor, strokeWidth, position, width, height, pen, brush);
 	}
 
 	bool Figure::CheckBorder(Size size) {
