@@ -1,0 +1,17 @@
+﻿  CanvasController.cpp
+  EllipseShape.cpp
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\ellipseshape.cpp(19): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  Figure.cpp
+  MainForm.cpp
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(346): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(384): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(407): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(412): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(420): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\михаил\desktop\dnu\3 курс\cource work cpp\graphoopzarubina\graphoopzarubina\mainform.h(469): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  RectangleShape.cpp
+  ShapeUnion.cpp
+  TriangleShape.cpp
+  Создание кода...
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
+  GraphOOPZarubina.vcxproj -> C:\Users\Михаил\Desktop\DNU\3 курс\Cource work Cpp\GraphOOPZarubina\Debug\GraphOOPZarubina.exe
