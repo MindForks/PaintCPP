@@ -4,6 +4,8 @@
 #include "EllipseShape.h"
 #include "CanvasController.h"
 #include "ShapeUnion.h"
+#include <string>
+
 
 namespace CourseWork {
 
@@ -69,6 +71,9 @@ namespace CourseWork {
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::CheckBox^  checkBox1;
 	private: System::Windows::Forms::Button^  btnGroup;
+	private: System::Windows::Forms::Button^  btnSaveSelected;
+	private: System::Windows::Forms::ListBox^  lstSnapshots;
+	private: System::Windows::Forms::Button^  btnLoadFromLst;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -109,6 +114,9 @@ namespace CourseWork {
 			this->pointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->btnSaveSelected = (gcnew System::Windows::Forms::Button());
+			this->lstSnapshots = (gcnew System::Windows::Forms::ListBox());
+			this->btnLoadFromLst = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -319,11 +327,43 @@ namespace CourseWork {
 			this->timer1->Interval = 10;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
 			// 
+			// btnSaveSelected
+			// 
+			this->btnSaveSelected->Location = System::Drawing::Point(481, 138);
+			this->btnSaveSelected->Name = L"btnSaveSelected";
+			this->btnSaveSelected->Size = System::Drawing::Size(129, 78);
+			this->btnSaveSelected->TabIndex = 7;
+			this->btnSaveSelected->Text = L"Save selected";
+			this->btnSaveSelected->UseVisualStyleBackColor = true;
+			this->btnSaveSelected->Click += gcnew System::EventHandler(this, &MainForm::btnSaveSelected_Click);
+			// 
+			// lstSnapshots
+			// 
+			this->lstSnapshots->FormattingEnabled = true;
+			this->lstSnapshots->ItemHeight = 25;
+			this->lstSnapshots->Location = System::Drawing::Point(94, 138);
+			this->lstSnapshots->Name = L"lstSnapshots";
+			this->lstSnapshots->Size = System::Drawing::Size(345, 304);
+			this->lstSnapshots->TabIndex = 8;
+			// 
+			// btnLoadFromLst
+			// 
+			this->btnLoadFromLst->Location = System::Drawing::Point(481, 243);
+			this->btnLoadFromLst->Name = L"btnLoadFromLst";
+			this->btnLoadFromLst->Size = System::Drawing::Size(129, 90);
+			this->btnLoadFromLst->TabIndex = 9;
+			this->btnLoadFromLst->Text = L"Load From List";
+			this->btnLoadFromLst->UseVisualStyleBackColor = true;
+			this->btnLoadFromLst->Click += gcnew System::EventHandler(this, &MainForm::btnLoadFromLst_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1924, 940);
+			this->Controls->Add(this->btnLoadFromLst);
+			this->Controls->Add(this->lstSnapshots);
+			this->Controls->Add(this->btnSaveSelected);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->canvas);
 			this->KeyPreview = true;
@@ -484,6 +524,8 @@ namespace CourseWork {
 
 	private: System::Void erase_Click(System::Object^  sender, System::EventArgs^  e) {
 		controller->figures->Clear();
+		controller->snapCarateker = gcnew SnapshotCaretaker();
+		lstSnapshots->Items->Clear();
 		controller->Refresh();
 	}
 
@@ -492,6 +534,11 @@ namespace CourseWork {
 		{
 			controller->Resize();
 			controller->Refresh();
+		}
+		else
+		{
+			this->Width = 1000;
+			this->Height = 530;
 		}
 	}
 
@@ -520,5 +567,42 @@ namespace CourseWork {
 		controller->figures->Add(group);
 		controller->Refresh();
 	}
-	};
+	
+	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
+		for (int i = 0; i < this->controller->figures->Count; i++) {
+			if (this->controller->figures[i]->IsSelected) {
+				System::String^ snapName =  "name" + i;
+				this->controller->snapCarateker->AddSnaphot(this->controller->figures[i], snapName);
+			}
+		}
+		UpdateLstSnaphots();
+	}
+	
+	private: System::Void btnLoadFromLst_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (this->lstSnapshots->SelectedItem != nullptr)
+		{
+			Snapshot^ snap = (Snapshot^)(this->lstSnapshots->SelectedItem);
+			if (snap != nullptr)
+			{
+				controller->figures->Add(controller->snapCarateker->RestoreFromSnapshot(snap)->Copy());
+				controller->Refresh();
+			}
+		}
+	}
+	
+	private: void UpdateLstSnaphots()
+	{
+		this->lstSnapshots->Items->Clear();
+		this->lstSnapshots->DisplayMember = "snapName";
+		this->lstSnapshots->ValueMember = "snapName";
+
+		for each (Snapshot^ var in controller->snapCarateker->SnaphotList)
+		{
+			this->lstSnapshots->Items->Add(var);
+			this->lstSnapshots->DisplayMember = "snapName";
+			this->lstSnapshots->ValueMember = "snapName";
+		}
+	}
+	
+};
 }

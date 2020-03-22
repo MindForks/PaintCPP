@@ -15,7 +15,7 @@ using namespace System::Drawing::Drawing2D;
 namespace CourseWork {
 
 
-	public ref class Figure abstract // composite
+	public ref class Figure // composite
 	{
 	private:
 		
@@ -43,7 +43,7 @@ namespace CourseWork {
 		Figure(System::Drawing::Color color, System::Drawing::Color strokeColor);
 		Figure(Snapshot^ snap);
 		~Figure();
-		Snapshot^ CreateSnapshot();
+		Snapshot^ CreateSnapshot(String^ snapshotName);
 		// properties:
 		virtual property System::Drawing::Color Color {
 			virtual System::Drawing::Color get() { return this->color; }

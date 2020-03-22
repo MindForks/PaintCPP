@@ -7,7 +7,7 @@ using namespace System::Drawing::Drawing2D;
 
 namespace CourseWork {
 
-	ref class SnapshotCaretaker
+	public ref class SnapshotCaretaker
 	{
 	private:
 		List<Snapshot^>^ snaphotList;
@@ -17,7 +17,9 @@ namespace CourseWork {
 		{
 			this->snaphotList = gcnew List<Snapshot^>();
 		}
-		void AddSnaphot(Figure^ figure);
+		void AddSnaphot(Figure^ figure, System::String^ snapshotName);
+		Figure^ RestoreFromSnapshot(Snapshot^ snap);
+
 		//properties
 		property List<Snapshot^>^ SnaphotList {
 			List<Snapshot^>^ get() { return this->snaphotList; }

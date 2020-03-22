@@ -45,7 +45,7 @@ namespace CourseWork {
 	{
 	}
 
-	Snapshot^ Figure::CreateSnapshot()
+	Snapshot^ Figure::CreateSnapshot(String^ snapshotName)
 	{
 		return gcnew Snapshot(color, strokeColor, strokeWidth, position, width, height, pen, brush);
 	}
