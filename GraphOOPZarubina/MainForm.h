@@ -61,7 +61,7 @@ namespace CourseWork {
 
 
 	private: System::Windows::Forms::RadioButton^  pointer;
-	private: System::Windows::Forms::CheckBox^  deformation;
+
 	private: System::Windows::Forms::Label^  stroke;
 	private: System::Windows::Forms::Label^  fill;
 	private: System::Windows::Forms::ColorDialog^  colorDialog1;
@@ -105,7 +105,6 @@ namespace CourseWork {
 			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
 			this->stroke = (gcnew System::Windows::Forms::Label());
 			this->fill = (gcnew System::Windows::Forms::Label());
-			this->deformation = (gcnew System::Windows::Forms::CheckBox());
 			this->triangle = (gcnew System::Windows::Forms::RadioButton());
 			this->ellipse = (gcnew System::Windows::Forms::RadioButton());
 			this->rectangle = (gcnew System::Windows::Forms::RadioButton());
@@ -146,7 +145,6 @@ namespace CourseWork {
 			this->panel1->Controls->Add(this->trackBar1);
 			this->panel1->Controls->Add(this->stroke);
 			this->panel1->Controls->Add(this->fill);
-			this->panel1->Controls->Add(this->deformation);
 			this->panel1->Controls->Add(this->triangle);
 			this->panel1->Controls->Add(this->ellipse);
 			this->panel1->Controls->Add(this->rectangle);
@@ -236,19 +234,6 @@ namespace CourseWork {
 			this->fill->Text = L"Fill";
 			this->fill->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->fill->Click += gcnew System::EventHandler(this, &MainForm::fill_Click);
-			// 
-			// deformation
-			// 
-			this->deformation->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->deformation->Appearance = System::Windows::Forms::Appearance::Button;
-			this->deformation->Location = System::Drawing::Point(1538, 6);
-			this->deformation->Margin = System::Windows::Forms::Padding(4);
-			this->deformation->Name = L"deformation";
-			this->deformation->Size = System::Drawing::Size(170, 79);
-			this->deformation->TabIndex = 2;
-			this->deformation->Text = L"Allow deformation";
-			this->deformation->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->deformation->UseVisualStyleBackColor = true;
 			// 
 			// triangle
 			// 
@@ -435,10 +420,6 @@ namespace CourseWork {
 				}
 				else {
 					controller->DragSelected(PointF(e->X, e->Y));
-				}
-
-				if (deformation->Checked) {
-					controller->DiformateIntersectedFigures();
 				}
 			}
 			else if (rectangle->Checked || ellipse->Checked || triangle->Checked) {

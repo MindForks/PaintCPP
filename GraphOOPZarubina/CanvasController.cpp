@@ -67,19 +67,6 @@ namespace CourseWork {
 		}
 	}
 
-	void CanvasController::DiformateIntersectedFigures()
-	{
-		for each (Figure^ fig1 in this->figures) {
-			if (fig1->IsSelected) {
-				for each (Figure^ fig2 in this->figures) {
-					if (!fig2->IsSelected && fig2->CheckColision(fig1)) {
-						fig2->Diformate();
-					}
-				}
-			}
-		}
-	}
-
 	void CanvasController::RemoveSelected()
 	{
 		for (int i = 0; i < this->figures->Count; i++) {

@@ -50,14 +50,6 @@ namespace CourseWork {
 		return gcnew Snapshot(color, strokeColor, strokeWidth, position, width, height, pen, brush);
 	}
 
-	bool Figure::CheckBorder(Size size) {
-		return
-			this->Left < 0 ||
-			this->Right > size.Width ||
-			this->Top < 0 ||
-			this->Bottom > size.Height;
-	}
-
 	bool Figure::CheckPoint(PointF^ point) {
 		throw gcnew System::NotImplementedException();
 	}
@@ -117,17 +109,6 @@ namespace CourseWork {
 		else {
 			this->Position->Y = point2->Y;
 			this->Height = point1->Y - point2->Y;
-		}
-	}
-
-	void Figure::Diformate()
-	{
-		if (this->Height > 2) {
-			this->Position = gcnew PointF((float)this->Position->X - 0.25f, this->Position->Y);
-			this->Width += 0.5f;
-
-			this->Position = gcnew PointF(this->Position->X, (float)this->Position->Y + 0.25f);
-			this->Height -= 0.5f;
 		}
 	}
 

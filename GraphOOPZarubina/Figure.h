@@ -19,7 +19,7 @@ namespace CourseWork {
 	{
 	private:
 		
-		PointF^ dragPosition;
+		PointF^ dragPosition;  //used when we calculate drag delta
 
 	protected:
 		Pen^ selectionPen;
@@ -115,16 +115,13 @@ namespace CourseWork {
 			virtual void set(bool value) { this->isSelected = value; }
 		}
 
-
 		virtual bool CheckPoint(PointF^ point);
 		virtual bool CheckColision(Figure^ figure);
-		virtual bool CheckBorder(Size size);
 		virtual void Draw(Graphics^ g);
 		virtual void DrawWithSelection(Graphics^ g);
-		virtual void StartDrag(PointF^ point);
+		virtual void StartDrag(PointF^ point); // to save startpoint of drag
 		virtual void Drag(PointF^ point);
-		virtual void FitRectangle(PointF^ point1, PointF^ point2);
-		virtual void Diformate();
+		virtual void FitRectangle(PointF^ point1, PointF^ point2); // update size acording to points
 
 		virtual Figure^ Copy(); // prototype pattern
 	};

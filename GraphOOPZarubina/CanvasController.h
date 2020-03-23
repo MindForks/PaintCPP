@@ -24,7 +24,6 @@ namespace CourseWork {
 		void DragSelected(PointF^ point);
 		void SelectByIntersection(Figure^ figure);
 		void StartDragSelected(PointF^ point);
-		void DiformateIntersectedFigures();
 		void RemoveSelected();
 	};
 }
