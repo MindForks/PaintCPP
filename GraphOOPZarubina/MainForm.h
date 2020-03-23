@@ -68,8 +68,8 @@ namespace CourseWork {
 	private: System::Windows::Forms::TrackBar^  trackBar1;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Button^  erase;
-	private: System::Windows::Forms::Timer^  timer1;
-	private: System::Windows::Forms::CheckBox^  checkBox1;
+
+
 	private: System::Windows::Forms::Button^  btnGroup;
 	private: System::Windows::Forms::Button^  btnSaveSelected;
 	private: System::Windows::Forms::ListBox^  lstSnapshots;
@@ -97,10 +97,8 @@ namespace CourseWork {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->btnGroup = (gcnew System::Windows::Forms::Button());
 			this->erase = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -113,7 +111,6 @@ namespace CourseWork {
 			this->rectangle = (gcnew System::Windows::Forms::RadioButton());
 			this->pointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->btnSaveSelected = (gcnew System::Windows::Forms::Button());
 			this->lstSnapshots = (gcnew System::Windows::Forms::ListBox());
 			this->btnLoadFromLst = (gcnew System::Windows::Forms::Button());
@@ -143,7 +140,6 @@ namespace CourseWork {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->panel1->Controls->Add(this->checkBox1);
 			this->panel1->Controls->Add(this->btnGroup);
 			this->panel1->Controls->Add(this->erase);
 			this->panel1->Controls->Add(this->label1);
@@ -160,20 +156,6 @@ namespace CourseWork {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1876, 88);
 			this->panel1->TabIndex = 6;
-			// 
-			// checkBox1
-			// 
-			this->checkBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->checkBox1->Appearance = System::Windows::Forms::Appearance::Button;
-			this->checkBox1->Location = System::Drawing::Point(1708, 6);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(4);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(164, 79);
-			this->checkBox1->TabIndex = 8;
-			this->checkBox1->Text = L"Explode";
-			this->checkBox1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->checkBox1->UseVisualStyleBackColor = true;
-			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MainForm::checkBox1_CheckedChanged);
 			// 
 			// btnGroup
 			// 
@@ -321,11 +303,6 @@ namespace CourseWork {
 			this->pointer->Text = L"Pointer";
 			this->pointer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->pointer->UseVisualStyleBackColor = true;
-			// 
-			// timer1
-			// 
-			this->timer1->Interval = 10;
-			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
 			// 
 			// btnSaveSelected
 			// 
@@ -539,16 +516,6 @@ namespace CourseWork {
 			this->Height = 530;
 		}
 	}
-
-	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		controller->Explode();
-		controller->Refresh();
-	}
-
-	private: System::Void checkBox1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-		timer1->Enabled = !timer1->Enabled;
-	}
-
 
 	private: System::Void group_Click(System::Object^  sender, System::EventArgs^  e) {
 		Figure^ group = (Figure^)(gcnew ShapeUnion());

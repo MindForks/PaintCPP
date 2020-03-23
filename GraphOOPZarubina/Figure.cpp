@@ -131,18 +131,6 @@ namespace CourseWork {
 		}
 	}
 
-	void Figure::Animate(Size size)
-	{
-		if (!this->CheckBorder(size)) {
-			float x, y, o_x, o_y;
-			x = (float)size.Width / 2.0f;
-			y = (float)size.Height / 2.0f;
-			o_x = this->Left + this->Width / 2.0f;
-			o_y = this->Top + this->Height / 2.0f;
-			this->Position = PointF(this->Position->X + (o_x - x) * 0.1f, this->Position->Y + (o_y - y) * 0.1f);
-		}
-	}
-
 	Figure^ Figure::Copy() {
 		return nullptr;
 	}

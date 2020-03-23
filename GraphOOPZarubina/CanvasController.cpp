@@ -21,12 +21,6 @@ namespace CourseWork {
 		return nullptr;
 	}
 
-	void CanvasController::Explode() {
-		for each (Figure^ figure in this->figures) {
-			figure->Animate(this->box->Size);
-		}
-	}
-
 	void CanvasController::Refresh() {
 		this->g->Clear(System::Drawing::Color::White);
 		//this->g->DrawImage((Image^)this->background, 0, 0);

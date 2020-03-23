@@ -125,7 +125,6 @@ namespace CourseWork {
 		virtual void Drag(PointF^ point);
 		virtual void FitRectangle(PointF^ point1, PointF^ point2);
 		virtual void Diformate();
-		virtual void Animate(Size size);
 
 		virtual Figure^ Copy(); // prototype pattern
 	};

@@ -18,7 +18,6 @@ namespace CourseWork {
 		List<Figure^>^ figures;
 		Figure^ getObject(PointF^ point);
 		SnapshotCaretaker^ snapCarateker;
-		void Explode();
 		void Refresh();
 		void Resize();
 		void DeselectAll();
