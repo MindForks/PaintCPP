@@ -536,7 +536,7 @@ namespace CourseWork {
 	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < this->controller->figures->Count; i++) {
 			if (this->controller->figures[i]->IsSelected) {
-				System::String^ snapName =  "Item ";
+				System::String^ snapName =  "Item " + (controller->snapCarateker->SnaphotList->Count + 1);
 				this->controller->snapCarateker->AddSnaphot(this->controller->figures[i], snapName);
 			}
 		}
@@ -568,7 +568,7 @@ namespace CourseWork {
 		for(int i = 0; i < controller->snapCarateker->SnaphotList->Count; i++)
 		{
 			Snapshot^ item = controller->snapCarateker->SnaphotList[i];
-			this->lstSnapshots->Items->Add((i+1) + " " +item->snapName);
+			this->lstSnapshots->Items->Add((i+1) + ". " +item->snapName);
 			this->lstSnapshots->SelectedIndex = -1;
 		}
 	}
