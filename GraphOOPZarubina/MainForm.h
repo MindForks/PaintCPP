@@ -99,8 +99,10 @@ namespace CourseWork {
 		{
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->btnLoadFromLst = (gcnew System::Windows::Forms::Button());
 			this->btnGroup = (gcnew System::Windows::Forms::Button());
 			this->erase = (gcnew System::Windows::Forms::Button());
+			this->btnSaveSelected = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
 			this->stroke = (gcnew System::Windows::Forms::Label());
@@ -110,9 +112,7 @@ namespace CourseWork {
 			this->rectangle = (gcnew System::Windows::Forms::RadioButton());
 			this->pointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
-			this->btnSaveSelected = (gcnew System::Windows::Forms::Button());
 			this->lstSnapshots = (gcnew System::Windows::Forms::ListBox());
-			this->btnLoadFromLst = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -128,7 +128,7 @@ namespace CourseWork {
 			this->canvas->Location = System::Drawing::Point(24, 123);
 			this->canvas->Margin = System::Windows::Forms::Padding(6);
 			this->canvas->Name = L"canvas";
-			this->canvas->Size = System::Drawing::Size(1872, 791);
+			this->canvas->Size = System::Drawing::Size(1552, 806);
 			this->canvas->TabIndex = 0;
 			this->canvas->TabStop = false;
 			this->canvas->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBox1_MouseDown);
@@ -139,8 +139,10 @@ namespace CourseWork {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->panel1->Controls->Add(this->btnLoadFromLst);
 			this->panel1->Controls->Add(this->btnGroup);
 			this->panel1->Controls->Add(this->erase);
+			this->panel1->Controls->Add(this->btnSaveSelected);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->trackBar1);
 			this->panel1->Controls->Add(this->stroke);
@@ -154,6 +156,17 @@ namespace CourseWork {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1876, 88);
 			this->panel1->TabIndex = 6;
+			// 
+			// btnLoadFromLst
+			// 
+			this->btnLoadFromLst->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnLoadFromLst->Location = System::Drawing::Point(1744, 4);
+			this->btnLoadFromLst->Name = L"btnLoadFromLst";
+			this->btnLoadFromLst->Size = System::Drawing::Size(129, 77);
+			this->btnLoadFromLst->TabIndex = 9;
+			this->btnLoadFromLst->Text = L"Load From List";
+			this->btnLoadFromLst->UseVisualStyleBackColor = true;
+			this->btnLoadFromLst->Click += gcnew System::EventHandler(this, &MainForm::btnLoadFromLst_Click);
 			// 
 			// btnGroup
 			// 
@@ -176,6 +189,17 @@ namespace CourseWork {
 			this->erase->Text = L"Erase";
 			this->erase->UseVisualStyleBackColor = true;
 			this->erase->Click += gcnew System::EventHandler(this, &MainForm::erase_Click);
+			// 
+			// btnSaveSelected
+			// 
+			this->btnSaveSelected->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnSaveSelected->Location = System::Drawing::Point(1561, 7);
+			this->btnSaveSelected->Name = L"btnSaveSelected";
+			this->btnSaveSelected->Size = System::Drawing::Size(129, 77);
+			this->btnSaveSelected->TabIndex = 7;
+			this->btnSaveSelected->Text = L"Save selected";
+			this->btnSaveSelected->UseVisualStyleBackColor = true;
+			this->btnSaveSelected->Click += gcnew System::EventHandler(this, &MainForm::btnSaveSelected_Click);
 			// 
 			// label1
 			// 
@@ -289,45 +313,25 @@ namespace CourseWork {
 			this->pointer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->pointer->UseVisualStyleBackColor = true;
 			// 
-			// btnSaveSelected
-			// 
-			this->btnSaveSelected->Location = System::Drawing::Point(481, 138);
-			this->btnSaveSelected->Name = L"btnSaveSelected";
-			this->btnSaveSelected->Size = System::Drawing::Size(129, 78);
-			this->btnSaveSelected->TabIndex = 7;
-			this->btnSaveSelected->Text = L"Save selected";
-			this->btnSaveSelected->UseVisualStyleBackColor = true;
-			this->btnSaveSelected->Click += gcnew System::EventHandler(this, &MainForm::btnSaveSelected_Click);
-			// 
 			// lstSnapshots
 			// 
+			this->lstSnapshots->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->lstSnapshots->DisplayMember = L"snapName";
 			this->lstSnapshots->FormattingEnabled = true;
 			this->lstSnapshots->ItemHeight = 25;
-			this->lstSnapshots->Location = System::Drawing::Point(94, 138);
+			this->lstSnapshots->Location = System::Drawing::Point(1585, 123);
 			this->lstSnapshots->Name = L"lstSnapshots";
-			this->lstSnapshots->Size = System::Drawing::Size(345, 304);
+			this->lstSnapshots->Size = System::Drawing::Size(315, 804);
 			this->lstSnapshots->TabIndex = 8;
 			this->lstSnapshots->ValueMember = L"snapName";
-			// 
-			// btnLoadFromLst
-			// 
-			this->btnLoadFromLst->Location = System::Drawing::Point(481, 243);
-			this->btnLoadFromLst->Name = L"btnLoadFromLst";
-			this->btnLoadFromLst->Size = System::Drawing::Size(129, 90);
-			this->btnLoadFromLst->TabIndex = 9;
-			this->btnLoadFromLst->Text = L"Load From List";
-			this->btnLoadFromLst->UseVisualStyleBackColor = true;
-			this->btnLoadFromLst->Click += gcnew System::EventHandler(this, &MainForm::btnLoadFromLst_Click);
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1924, 940);
-			this->Controls->Add(this->btnLoadFromLst);
+			this->ClientSize = System::Drawing::Size(1924, 942);
 			this->Controls->Add(this->lstSnapshots);
-			this->Controls->Add(this->btnSaveSelected);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->canvas);
 			this->KeyPreview = true;
