@@ -43,7 +43,6 @@ namespace GraphicsCpp {
 		Figure(System::Drawing::Color color, System::Drawing::Color strokeColor);
 		Figure(Snapshot^ snap);
 		~Figure();
-		Snapshot^ CreateSnapshot(String^ snapshotName);
 		// properties:
 		virtual property System::Drawing::Color Color {
 			virtual System::Drawing::Color get() { return this->color; }

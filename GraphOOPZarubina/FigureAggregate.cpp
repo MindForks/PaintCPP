@@ -1,8 +1,8 @@
-#include "ShapeUnion.h"
+#include "FigureAggregate.h"
 
 namespace GraphicsCpp {
 
-	ShapeUnion::ShapeUnion()
+	FigureAggregate::FigureAggregate()
 	{
 		this->figures = gcnew List<Figure^>();
 		this->height = 1;
@@ -15,7 +15,7 @@ namespace GraphicsCpp {
 		};
 	}
 
-	bool ShapeUnion::CheckPoint(PointF ^ point)
+	bool FigureAggregate::CheckPoint(PointF ^ point)
 	{
 		for each(Figure^ figure in this->figures) {
 			if (figure->CheckPoint(point)) {
@@ -25,7 +25,7 @@ namespace GraphicsCpp {
 		return false;
 	}
 
-	bool ShapeUnion::CheckColision(Figure^ figure) {
+	bool FigureAggregate::CheckColision(Figure^ figure) {
 		for each(Figure^ fig in this->figures) {
 			if (figure->CheckColision(fig)) {
 				return true;
@@ -34,36 +34,36 @@ namespace GraphicsCpp {
 		return false;
 	}
 
-	void ShapeUnion::Draw(Graphics ^ g)
+	void FigureAggregate::Draw(Graphics ^ g)
 	{
 		for each(Figure^ figure in this->figures) {
 			figure->Draw(g);
 		}
 	}
 
-	void ShapeUnion::DrawWithSelection(Graphics^ g) {
+	void FigureAggregate::DrawWithSelection(Graphics^ g) {
 		for each(Figure^ figure in this->figures) {
 			figure->DrawWithSelection(g);
 		}
 		g->DrawRectangle(this->selectionPen, this->Left, this->Top, this->width, this->height);
 	}
 
-	void ShapeUnion::UpdateCollisionShape()
+	void FigureAggregate::UpdateCollisionShape()
 	{
 		for each(Figure^ figure in this->figures) {
 			figure->UpdateCollisionShape();
 		}
 	}
 
-	void ShapeUnion::UpdateSize()
+	void FigureAggregate::UpdateSize()
 	{
 		this->width = this->Width;
 		this->height = this->Height;
 	}
 
-	Figure ^ ShapeUnion::Copy()
+	Figure ^ FigureAggregate::Copy()
 	{
-		ShapeUnion^ figure = gcnew ShapeUnion();
+		FigureAggregate^ figure = gcnew FigureAggregate();
 		for each (Figure^ fig in this->figures)
 		{
 			figure->figures->Add(fig->Copy());

@@ -1,18 +1,18 @@
-#include "CanvasController.h"
+#include "PictureController.h"
 
 namespace GraphicsCpp {
 
-	CanvasController::CanvasController(PictureBox^ box) {
+	PictureController::PictureController(PictureBox^ box) {
 		this->box = box;
 		this->figures = gcnew List<Figure^>();
 		this->canvas = gcnew Bitmap(box->Width, box->Height);
 		this->g = Graphics::FromImage(this->canvas);
 		this->background = gcnew Bitmap(box->Width, box->Height);
 		this->gb = Graphics::FromImage(this->background);
-		this->snapCarateker = gcnew SnapshotCaretaker();
+		this->snapCarateker = gcnew Caretaker();
 	}
 
-	CanvasController^ CanvasController::GetInstance()
+	PictureController^ PictureController::GetInstance()
 	{
 		if (ref_instance != nullptr)
 		{
@@ -24,12 +24,12 @@ namespace GraphicsCpp {
 		}
 	}
 
-	void CanvasController::InitInstance(PictureBox ^ box)
+	void PictureController::InitInstance(PictureBox ^ box)
 	{
-		ref_instance = gcnew CanvasController(box);
+		ref_instance = gcnew PictureController(box);
 	}
 
-	Figure^ CanvasController::getObject(PointF^ point) {
+	Figure^ PictureController::getObject(PointF^ point) {
 		for (int i = this->figures->Count - 1; i >= 0; i--) {
 			if (this->figures[i]->CheckPoint(point)) {
 				return this->figures[i];
@@ -38,7 +38,7 @@ namespace GraphicsCpp {
 		return nullptr;
 	}
 
-	void CanvasController::Refresh() {
+	void PictureController::Refresh() {
 		this->g->Clear(System::Drawing::Color::White);
 		//this->g->DrawImage((Image^)this->background, 0, 0);
 		for each (Figure^ figure in this->figures) {
@@ -52,21 +52,21 @@ namespace GraphicsCpp {
 		this->box->Image = this->canvas;
 	}
 
-	void CanvasController::Resize() {
+	void PictureController::Resize() {
 		this->canvas = gcnew Bitmap(box->Width, box->Height);
 		this->g = Graphics::FromImage(this->canvas);
 		this->background = gcnew Bitmap(box->Width, box->Height);
 		this->gb = Graphics::FromImage(this->background);
 	}
 
-	void CanvasController::DeselectAll()
+	void PictureController::DeselectAll()
 	{
 		for each (Figure^ figure in this->figures) {
 			figure->IsSelected = false;
 		}
 	}
 
-	void CanvasController::DragSelected(PointF^ point)
+	void PictureController::DragSelected(PointF^ point)
 	{
 		for each (Figure^ figure in this->figures) {
 			if (figure->IsSelected) {
@@ -75,7 +75,7 @@ namespace GraphicsCpp {
 		}
 	}
 
-	void CanvasController::StartDragSelected(PointF^ point)
+	void PictureController::StartDragSelected(PointF^ point)
 	{
 		for each (Figure^ figure in this->figures) {
 			if (figure->IsSelected) {
@@ -84,7 +84,7 @@ namespace GraphicsCpp {
 		}
 	}
 
-	void CanvasController::RemoveSelected()
+	void PictureController::RemoveSelected()
 	{
 		for (int i = 0; i < this->figures->Count; i++) {
 			if (this->figures[i]->IsSelected) {
@@ -94,7 +94,7 @@ namespace GraphicsCpp {
 		}
 	}
 
-	void CanvasController::SelectByIntersection(Figure^ figure) {
+	void PictureController::SelectByIntersection(Figure^ figure) {
 		for each (Figure^ fig in this->figures) {
 			if (figure != fig && (figure->CheckColision(fig) || fig->CheckColision(figure))) {
 				fig->IsSelected = true;

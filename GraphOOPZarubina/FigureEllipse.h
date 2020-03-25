@@ -3,17 +3,15 @@
 
 namespace GraphicsCpp {
 
-	ref class RectangleShape :
+	ref class FigureEllipse :
 		public Figure
 	{
 	public:
 		virtual void UpdateCollisionShape() override;
-		RectangleShape();
+		FigureEllipse();
 		virtual bool CheckPoint(PointF^ point) override;
 		virtual void Draw(Graphics^ g) override;
 		virtual Figure^ Copy() override;
-		
 	};
 
 }
-

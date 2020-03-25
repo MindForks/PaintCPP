@@ -137,28 +137,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CanvasController.h" />
-    <ClInclude Include="EllipseShape.h" />
+    <ClInclude Include="PictureController.h" />
+    <ClInclude Include="FigureEllipse.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="RectangleShape.h" />
-    <ClInclude Include="ShapeUnion.h" />
+    <ClInclude Include="FigureRectangle.h" />
+    <ClInclude Include="FigureAggregate.h" />
     <ClInclude Include="Snapshot.h" />
-    <ClInclude Include="SnapshotCaretaker.h" />
-    <ClInclude Include="TriangleShape.h" />
+    <ClInclude Include="Caretaker.h" />
+    <ClInclude Include="FigureTriangle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CanvasController.cpp" />
-    <ClCompile Include="EllipseShape.cpp" />
+    <ClCompile Include="PictureController.cpp" />
+    <ClCompile Include="FigureEllipse.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="RectangleShape.cpp" />
-    <ClCompile Include="ShapeUnion.cpp" />
-    <ClCompile Include="Snapshot.cpp" />
-    <ClCompile Include="SnapshotCaretaker.cpp" />
-    <ClCompile Include="TriangleShape.cpp" />
+    <ClCompile Include="FigureRectangle.cpp" />
+    <ClCompile Include="FigureAggregate.cpp" />
+    <ClCompile Include="Caretaker.cpp" />
+    <ClCompile Include="FigureTriangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

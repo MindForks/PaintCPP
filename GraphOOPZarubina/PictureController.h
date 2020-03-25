@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Figure.h"
-#include "SnapshotCaretaker.h"
+#include "Caretaker.h"
 
 namespace GraphicsCpp {
-	ref class CanvasController
+	ref class PictureController
 	{
 	private:
-		CanvasController(PictureBox^ box);
-		static CanvasController^ ref_instance;
+		PictureController(PictureBox^ box);
+		static PictureController^ ref_instance;
 		PictureBox^ box;
 		Bitmap^ canvas;
 		Bitmap^ background;
@@ -18,8 +18,8 @@ namespace GraphicsCpp {
 	public:
 		List<Figure^>^ figures;
 		Figure^ getObject(PointF^ point);
-		SnapshotCaretaker^ snapCarateker;
-		static CanvasController^ GetInstance();
+		Caretaker^ snapCarateker;
+		static PictureController^ GetInstance();
 		static void InitInstance(PictureBox^ box);
 		void Refresh();
 		void Resize();

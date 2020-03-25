@@ -27,14 +27,14 @@ namespace GraphicsCpp {
 
 	Figure::Figure(Snapshot ^ snap)
 	{
-		this->color = snap->color;
-		this->strokeColor = snap->strokeColor;
-		this->strokeWidth = snap->strokeWidth;
-		this->position = snap->position;
-		this->height = snap->height;
-		this->width = snap->width;
-		this->pen = snap->pen;
-		this->brush = snap->brush;
+		this->color = snap->figure->color;
+		this->strokeColor = snap->figure->strokeColor;
+		this->strokeWidth = snap->figure->strokeWidth;
+		this->position = snap->figure->position;
+		this->height = snap->figure->height;
+		this->width = snap->figure->width;
+		this->pen = snap->figure->pen;
+		this->brush = snap->figure->brush;
 
 		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
@@ -43,11 +43,6 @@ namespace GraphicsCpp {
 
 	Figure::~Figure()
 	{
-	}
-
-	Snapshot^ Figure::CreateSnapshot(String^ snapshotName)
-	{
-		return gcnew Snapshot(color, strokeColor, strokeWidth, position, width, height, pen, brush);
 	}
 
 	bool Figure::CheckPoint(PointF^ point) {

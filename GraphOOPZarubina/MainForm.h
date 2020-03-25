@@ -1,9 +1,9 @@
 #pragma once
-#include "RectangleShape.h"
-#include "TriangleShape.h"
-#include "EllipseShape.h"
-#include "CanvasController.h"
-#include "ShapeUnion.h"
+#include "FigureRectangle.h"
+#include "FigureTriangle.h"
+#include "FigureEllipse.h"
+#include "PictureController.h"
+#include "FigureAggregate.h"
 #include <string>
 
 
@@ -355,7 +355,7 @@ namespace GraphicsCpp {
 		Figure^ last_figure;
 
 	private: System::Void pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		create_pos = PointF(e->X, e->Y);
 		if (rbPointer->Checked) {
 			Figure^ figure = controller->getObject(create_pos);
@@ -375,20 +375,20 @@ namespace GraphicsCpp {
 			else {
 				controller->DeselectAll();
 				multiselect = true;
-				last_figure = (Figure^)(gcnew RectangleShape());
+				last_figure = (Figure^)(gcnew FigureRectangle());
 				last_figure->StrokeColor = Color::Cyan;
 				last_figure->StrokeWidth = 2;
 				last_figure->Color = Color::Transparent;
 			}
 		}
 		else if (rbRectangle->Checked) {
-			last_figure = (Figure^)(gcnew RectangleShape());
+			last_figure = (Figure^)(gcnew FigureRectangle());
 		}
 		else if (rbTriangle->Checked) {
-			last_figure = (Figure^)(gcnew TriangleShape());
+			last_figure = (Figure^)(gcnew FigureTriangle());
 		}
 		else if (rbEllipse->Checked) {
-			last_figure = (Figure^)(gcnew EllipseShape());
+			last_figure = (Figure^)(gcnew FigureEllipse());
 		}
 		if (last_figure != nullptr && rbPointer->Checked == false) {
 			if (!multiselect) {
@@ -403,7 +403,7 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void pictureBox1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		is_mouse_down = false;
 		if (multiselect) {
 			controller->SelectByIntersection(last_figure);
@@ -416,7 +416,7 @@ namespace GraphicsCpp {
 
 	private: System::Void pictureBox1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		if (is_mouse_down) {
-			CanvasController^ controller = CanvasController::GetInstance();
+			PictureController^ controller = PictureController::GetInstance();
 			if (rbPointer->Checked) {
 				if (multiselect) {
 					last_figure->FitRectangle(PointF(e->X, e->Y), create_pos);
@@ -435,19 +435,19 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController::InitInstance(canvas);
+		PictureController::InitInstance(canvas);
 	}
 
 	private: System::Void MainForm_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
 		if (e->KeyCode == Keys::Delete) {
-			CanvasController^ controller = CanvasController::GetInstance();
+			PictureController^ controller = PictureController::GetInstance();
 			controller->RemoveSelected();
 			controller->Refresh();
 		}
 	}
 
 	private: System::Void fill_Click(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
 		fill->BackColor = colorDialog1->Color;
 		fill->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
@@ -461,7 +461,7 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void border_Click(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
 		border->BackColor = colorDialog1->Color;
 		border->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
@@ -476,7 +476,7 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		label1->Text = trackBar1->Value.ToString();
 
 		for each (Figure^ figure in controller->figures) {
@@ -488,15 +488,15 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void btnClean_Click(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		controller->figures->Clear();
-		controller->snapCarateker = gcnew SnapshotCaretaker();
+		controller->snapCarateker = gcnew Caretaker();
 		lstSnapshots->Items->Clear();
 		controller->Refresh();
 	}
 
 	private: System::Void MainForm_Resize(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		if (controller != nullptr)
 		{
 			controller->Resize();
@@ -510,24 +510,24 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void group_Click(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
-		Figure^ group = (Figure^)(gcnew ShapeUnion());
+		PictureController^ controller = PictureController::GetInstance();
+		Figure^ group = (Figure^)(gcnew FigureAggregate());
 		for (int i = 0; i < controller->figures->Count; i++) {
 			if (controller->figures[i]->IsSelected) {
-				((ShapeUnion^)group)->figures->Add(controller->figures[i]->Copy());
+				((FigureAggregate^)group)->figures->Add(controller->figures[i]->Copy());
 				controller->figures->RemoveAt(i);
 				i--;
 			}
 		}
 		// controller->figures->RemoveAt()
-		((ShapeUnion^)group)->UpdateSize();
-		((ShapeUnion^)group)->IsSelected = true;
+		((FigureAggregate^)group)->UpdateSize();
+		((FigureAggregate^)group)->IsSelected = true;
 		controller->figures->Add(group);
 		controller->Refresh();
 	}
 	
 	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		for (int i = 0; i < controller->figures->Count; i++) {
 			if (controller->figures[i]->IsSelected) {
 				System::String^ snapName =  "Item " + (controller->snapCarateker->SnaphotList->Count + 1);
@@ -540,7 +540,7 @@ namespace GraphicsCpp {
 	private: System::Void btnLoadFromLst_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (this->lstSnapshots->SelectedIndex != -1)
 		{
-			CanvasController^ controller = CanvasController::GetInstance();
+			PictureController^ controller = PictureController::GetInstance();
 			Snapshot^ snap = controller->snapCarateker->SnaphotList[lstSnapshots->SelectedIndex];
 			if (snap != nullptr)
 			{
@@ -556,7 +556,7 @@ namespace GraphicsCpp {
 	
 	private: void UpdateLstSnaphots()
 	{
-		CanvasController^ controller = CanvasController::GetInstance();
+		PictureController^ controller = PictureController::GetInstance();
 		this->lstSnapshots->Items->Clear();
 
 		for(int i = 0; i < controller->snapCarateker->SnaphotList->Count; i++)

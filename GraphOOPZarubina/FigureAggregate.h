@@ -2,14 +2,14 @@
 #include "Figure.h"
 
 namespace GraphicsCpp {
-	ref class ShapeUnion :
+	ref class FigureAggregate :
 		public Figure
 	{
 
 	public:
 		List<Figure^>^ figures;
 		virtual void UpdateCollisionShape() override;
-		ShapeUnion();
+		FigureAggregate();
 		virtual void UpdateSize();
 		// properties:
 		virtual property System::Drawing::Color Color {

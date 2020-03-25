@@ -7,13 +7,13 @@ using namespace System::Drawing::Drawing2D;
 
 namespace GraphicsCpp {
 
-	public ref class SnapshotCaretaker
+	public ref class Caretaker
 	{
 	private:
 		List<Snapshot^>^ snaphotList;
 
 	public:
-		SnapshotCaretaker()
+		Caretaker()
 		{
 			this->snaphotList = gcnew List<Snapshot^>();
 		}

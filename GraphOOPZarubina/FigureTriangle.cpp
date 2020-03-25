@@ -1,13 +1,13 @@
-#include "TriangleShape.h"
+#include "FigureTriangle.h"
 
 namespace GraphicsCpp {
 
-	TriangleShape::TriangleShape()
+	FigureTriangle::FigureTriangle()
 	{
 		UpdateCollisionShape();
 	}
 
-	void TriangleShape::UpdateCollisionShape()
+	void FigureTriangle::UpdateCollisionShape()
 	{
 		this->collisionShape = gcnew array<PointF>{
 			PointF(this->Left, this->Bottom),
@@ -23,7 +23,7 @@ namespace GraphicsCpp {
 		return (p1->X - p3->X) * (p2->Y - p3->Y) - (p2->X - p3->X) * (p1->Y - p3->Y);
 	}
 
-	bool TriangleShape::CheckPoint(PointF^ point) {
+	bool FigureTriangle::CheckPoint(PointF^ point) {
 		bool b1, b2, b3;
 
 		b1 = sign(point, this->collisionShape[0], this->collisionShape[1]) < 0.0f;
@@ -33,14 +33,14 @@ namespace GraphicsCpp {
 		return ((b1 == b2) && (b2 == b3));
 	}
 
-	void TriangleShape::Draw(Graphics^ g) {
+	void FigureTriangle::Draw(Graphics^ g) {
 		g->FillPolygon(this->brush, this->collisionShape);
 		g->DrawPolygon(this->pen, this->collisionShape);
 	}
 
-	Figure ^ TriangleShape::Copy()
+	Figure ^ FigureTriangle::Copy()
 	{
-		TriangleShape^ figure = gcnew TriangleShape();
+		FigureTriangle^ figure = gcnew FigureTriangle();
 		figure->Color = this->Color;
 		figure->Width = this->Width;
 		figure->Height = this->Height;

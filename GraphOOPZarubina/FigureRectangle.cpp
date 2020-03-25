@@ -1,14 +1,14 @@
-#include "RectangleShape.h"
+#include "FigureRectangle.h"
 
 namespace GraphicsCpp {
 
-	RectangleShape::RectangleShape()
+	FigureRectangle::FigureRectangle()
 	{
 		UpdateCollisionShape();
 	}
 
 
-	void RectangleShape::UpdateCollisionShape()
+	void FigureRectangle::UpdateCollisionShape()
 	{
 		this->collisionShape = gcnew array<PointF>{
 			PointF(this->Left, this->Top),
@@ -18,7 +18,7 @@ namespace GraphicsCpp {
 		};
 	}
 
-	bool RectangleShape::CheckPoint(PointF^ point) {
+	bool FigureRectangle::CheckPoint(PointF^ point) {
 		return
 			this->Left < point->X &&
 			this->Right > point->X &&
@@ -26,14 +26,14 @@ namespace GraphicsCpp {
 			this->Bottom > point->Y;
 	}
 
-	void RectangleShape::Draw(Graphics^ g) {
+	void FigureRectangle::Draw(Graphics^ g) {
 		g->FillRectangle(this->brush, this->Left, this->Top, this->Width, this->Height);
 		g->DrawRectangle(this->pen, this->Left, this->Top, this->Width, this->Height);
 	}
 
-	Figure ^ RectangleShape::Copy()
+	Figure ^ FigureRectangle::Copy()
 	{
-		RectangleShape^ figure = gcnew RectangleShape();
+		FigureRectangle^ figure = gcnew FigureRectangle();
 		figure->Color = this->Color;
 		figure->Width = this->Width;
 		figure->Height = this->Height;
