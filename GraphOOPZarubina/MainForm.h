@@ -336,6 +336,7 @@ namespace CourseWork {
 			this->Controls->Add(this->canvas);
 			this->KeyPreview = true;
 			this->Margin = System::Windows::Forms::Padding(6);
+			this->MinimumSize = System::Drawing::Size(600, 200);
 			this->Name = L"MainForm";
 			this->Text = L"Course Work : Savvin M. PZ-17-1";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);

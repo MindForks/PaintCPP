@@ -2,7 +2,7 @@
 
 
 [CourseWork::STAThread]
-int Main() {
+int main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew CourseWork::MainForm);
