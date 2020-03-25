@@ -376,8 +376,8 @@ namespace GraphicsCpp {
 				controller->DeselectAll();
 				multiselect = true;
 				last_figure = (Figure^)(gcnew FigureRectangle());
-				last_figure->StrokeColor = Color::Cyan;
-				last_figure->StrokeWidth = 2;
+				last_figure->BorderColor = Color::Cyan;
+				last_figure->BorderWidth = 2;
 				last_figure->Color = Color::Transparent;
 			}
 		}
@@ -393,8 +393,8 @@ namespace GraphicsCpp {
 		if (last_figure != nullptr && rbPointer->Checked == false) {
 			if (!multiselect) {
 				last_figure->Color = fill->BackColor;
-				last_figure->StrokeColor = border->BackColor;
-				last_figure->StrokeWidth = trackBar1->Value;
+				last_figure->BorderColor = border->BackColor;
+				last_figure->BorderWidth = trackBar1->Value;
 			}
 			controller->figures->Add(last_figure);
 		}
@@ -469,7 +469,7 @@ namespace GraphicsCpp {
 
 		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
-				figure->StrokeColor = border->BackColor;
+				figure->BorderColor = border->BackColor;
 			}
 		}
 		controller->Refresh();
@@ -481,7 +481,7 @@ namespace GraphicsCpp {
 
 		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
-				figure->StrokeWidth = trackBar1->Value;
+				figure->BorderWidth = trackBar1->Value;
 			}
 		}
 		controller->Refresh();

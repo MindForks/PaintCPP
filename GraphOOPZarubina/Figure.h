@@ -24,8 +24,8 @@ namespace GraphicsCpp {
 	protected:
 		Pen^ selectionPen;
 		System::Drawing::Color color = System::Drawing::Color::LightGray;
-		System::Drawing::Color strokeColor = System::Drawing::Color::Black;
-		float strokeWidth = 0;
+		System::Drawing::Color borderColor = System::Drawing::Color::Black;
+		float borderWidth = 0;
 		PointF^ position = gcnew PointF(0, 0);
 		float width = 0;
 		float height = 0;
@@ -40,7 +40,7 @@ namespace GraphicsCpp {
 		array<PointF>^ collisionShape;
 
 		Figure();
-		Figure(System::Drawing::Color color, System::Drawing::Color strokeColor);
+		Figure(System::Drawing::Color color, System::Drawing::Color borderColor);
 		Figure(Snapshot^ snap);
 		~Figure();
 		// properties:
@@ -52,19 +52,19 @@ namespace GraphicsCpp {
 			}
 		}
 
-		virtual property System::Drawing::Color StrokeColor {
-			virtual System::Drawing::Color get() { return this->strokeColor; }
+		virtual property System::Drawing::Color BorderColor {
+			virtual System::Drawing::Color get() { return this->borderColor; }
 			virtual void set(System::Drawing::Color value) {
-				this->strokeColor = value;
-				this->pen = gcnew Pen(this->strokeColor, this->strokeWidth);
+				this->borderColor = value;
+				this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 			}
 		}
 
-		virtual property float StrokeWidth {
-			virtual float get() { return this->strokeWidth;  }
+		virtual property float BorderWidth {
+			virtual float get() { return this->borderWidth;  }
 			virtual void set(float value) {
-				this->strokeWidth = value;
-				this->pen = gcnew Pen(this->strokeColor, this->strokeWidth);
+				this->borderWidth = value;
+				this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 			}
 		}
 

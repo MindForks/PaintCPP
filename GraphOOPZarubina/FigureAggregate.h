@@ -24,26 +24,26 @@ namespace GraphicsCpp {
 			}
 		}
 
-		virtual property System::Drawing::Color StrokeColor {
+		virtual property System::Drawing::Color BorderColor {
 			virtual System::Drawing::Color get()  override {
-				return this->figures[0]->StrokeColor;
+				return this->figures[0]->BorderColor;
 			}
 			virtual void set(System::Drawing::Color value)  override {
 				for each (Figure^ figure in this->figures)
 				{
-					figure->StrokeColor = value;
+					figure->BorderColor = value;
 				}
 			}
 		}
 
-		virtual property float StrokeWidth {
+		virtual property float BorderWidth {
 			virtual float get()  override {
-				return this->figures[0]->StrokeWidth;
+				return this->figures[0]->BorderWidth;
 			}
 			virtual void set(float value) override {
 				for each (Figure^ figure in this->figures)
 				{
-					figure->StrokeWidth = value;
+					figure->BorderWidth = value;
 				}
 			}
 		}

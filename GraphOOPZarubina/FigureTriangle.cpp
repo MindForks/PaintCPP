@@ -45,8 +45,8 @@ namespace GraphicsCpp {
 		figure->Width = this->Width;
 		figure->Height = this->Height;
 		figure->Position = this->Position;
-		figure->StrokeColor = this->StrokeColor;
-		figure->StrokeWidth = this->StrokeWidth;
+		figure->BorderColor = this->BorderColor;
+		figure->BorderWidth = this->BorderWidth;
 		figure->IsSelected = false;
 		return (Figure^)figure;
 	}

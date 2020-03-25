@@ -9,17 +9,17 @@ namespace GraphicsCpp {
 
 	Figure::Figure()
 	{
-		this->pen = gcnew Pen(this->strokeColor, this->strokeWidth);
+		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
 		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
-	Figure::Figure(System::Drawing::Color color, System::Drawing::Color strokeColor)
+	Figure::Figure(System::Drawing::Color color, System::Drawing::Color borderColor)
 	{
 		this->color = color;
-		this->strokeColor = strokeColor;
-		this->pen = gcnew Pen(this->strokeColor, this->strokeWidth);
+		this->borderColor = borderColor;
+		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
 		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
@@ -28,8 +28,8 @@ namespace GraphicsCpp {
 	Figure::Figure(Snapshot ^ snap)
 	{
 		this->color = snap->figure->color;
-		this->strokeColor = snap->figure->strokeColor;
-		this->strokeWidth = snap->figure->strokeWidth;
+		this->borderColor = snap->figure->borderColor;
+		this->borderWidth = snap->figure->borderWidth;
 		this->position = snap->figure->position;
 		this->height = snap->figure->height;
 		this->width = snap->figure->width;
