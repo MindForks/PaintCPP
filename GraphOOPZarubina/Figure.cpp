@@ -1,6 +1,6 @@
 #include "Figure.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	void Figure::UpdateCollisionShape()
 	{

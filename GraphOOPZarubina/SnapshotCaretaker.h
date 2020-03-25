@@ -5,7 +5,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::Drawing::Drawing2D;
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	public ref class SnapshotCaretaker
 	{

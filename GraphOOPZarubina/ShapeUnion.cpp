@@ -1,6 +1,6 @@
 #include "ShapeUnion.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	ShapeUnion::ShapeUnion()
 	{

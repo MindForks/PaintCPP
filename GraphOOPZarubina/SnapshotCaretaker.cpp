@@ -1,6 +1,6 @@
 #include "SnapshotCaretaker.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	void SnapshotCaretaker::AddSnaphot(Figure^ figure, System::String^ snapshotName)
 	{

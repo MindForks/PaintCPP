@@ -1,6 +1,6 @@
 #include "CanvasController.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	CanvasController::CanvasController(PictureBox^ box) {
 		this->box = box;
@@ -10,6 +10,23 @@ namespace CourseWork {
 		this->background = gcnew Bitmap(box->Width, box->Height);
 		this->gb = Graphics::FromImage(this->background);
 		this->snapCarateker = gcnew SnapshotCaretaker();
+	}
+
+	CanvasController^ CanvasController::GetInstance()
+	{
+		if (ref_instance != nullptr)
+		{
+			return ref_instance;
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+
+	void CanvasController::InitInstance(PictureBox ^ box)
+	{
+		ref_instance = gcnew CanvasController(box);
 	}
 
 	Figure^ CanvasController::getObject(PointF^ point) {

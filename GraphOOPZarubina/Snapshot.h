@@ -7,7 +7,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::Drawing::Drawing2D;
 
-namespace CourseWork {
+namespace GraphicsCpp {
 	ref class Figure;
 	public ref class Snapshot 
 	{

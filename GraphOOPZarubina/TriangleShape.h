@@ -1,6 +1,6 @@
 #pragma once
 #include "Figure.h"
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	ref class TriangleShape :
 		public Figure

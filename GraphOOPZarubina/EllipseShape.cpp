@@ -1,7 +1,7 @@
 #include "EllipseShape.h"
 
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	EllipseShape::EllipseShape()
 	{

@@ -1,10 +1,10 @@
 #include "MainForm.h"
 
 
-[CourseWork::STAThread]
+[GraphicsCpp::STAThread]
 int main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	Application::Run(gcnew CourseWork::MainForm);
+	Application::Run(gcnew GraphicsCpp::MainForm);
 	return 0;
 }

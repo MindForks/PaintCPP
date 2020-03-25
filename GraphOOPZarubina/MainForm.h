@@ -7,7 +7,7 @@
 #include <string>
 
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -349,13 +349,13 @@ namespace CourseWork {
 #pragma endregion
 
 	private:
-		CanvasController ^ controller; // singleton
 		bool is_mouse_down = false;
 		bool multiselect = false;
 		PointF^ create_pos;
 		Figure^ last_figure;
 
 	private: System::Void pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		create_pos = PointF(e->X, e->Y);
 		if (rbPointer->Checked) {
 			Figure^ figure = controller->getObject(create_pos);
@@ -403,6 +403,7 @@ namespace CourseWork {
 	}
 
 	private: System::Void pictureBox1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		is_mouse_down = false;
 		if (multiselect) {
 			controller->SelectByIntersection(last_figure);
@@ -415,6 +416,7 @@ namespace CourseWork {
 
 	private: System::Void pictureBox1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		if (is_mouse_down) {
+			CanvasController^ controller = CanvasController::GetInstance();
 			if (rbPointer->Checked) {
 				if (multiselect) {
 					last_figure->FitRectangle(PointF(e->X, e->Y), create_pos);
@@ -433,55 +435,60 @@ namespace CourseWork {
 	}
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
-		controller = gcnew CanvasController(canvas);
+		CanvasController::InitInstance(canvas);
 	}
 
 	private: System::Void MainForm_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
 		if (e->KeyCode == Keys::Delete) {
+			CanvasController^ controller = CanvasController::GetInstance();
 			controller->RemoveSelected();
 			controller->Refresh();
 		}
 	}
 
 	private: System::Void fill_Click(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		colorDialog1->ShowDialog();
 		fill->BackColor = colorDialog1->Color;
 		fill->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
 
-		for each (Figure^ figure in this->controller->figures) {
+		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
 				figure->Color = fill->BackColor;
 			}
 		}
-		this->controller->Refresh();
+		controller->Refresh();
 	}
 
 	private: System::Void border_Click(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		colorDialog1->ShowDialog();
 		border->BackColor = colorDialog1->Color;
 		border->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
 
 
-		for each (Figure^ figure in this->controller->figures) {
+		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
 				figure->StrokeColor = border->BackColor;
 			}
 		}
-		this->controller->Refresh();
+		controller->Refresh();
 	}
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		label1->Text = trackBar1->Value.ToString();
 
-		for each (Figure^ figure in this->controller->figures) {
+		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
 				figure->StrokeWidth = trackBar1->Value;
 			}
 		}
-		this->controller->Refresh();
+		controller->Refresh();
 	}
 
 	private: System::Void btnClean_Click(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		controller->figures->Clear();
 		controller->snapCarateker = gcnew SnapshotCaretaker();
 		lstSnapshots->Items->Clear();
@@ -489,6 +496,7 @@ namespace CourseWork {
 	}
 
 	private: System::Void MainForm_Resize(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		if (controller != nullptr)
 		{
 			controller->Resize();
@@ -502,10 +510,11 @@ namespace CourseWork {
 	}
 
 	private: System::Void group_Click(System::Object^  sender, System::EventArgs^  e) {
+		CanvasController^ controller = CanvasController::GetInstance();
 		Figure^ group = (Figure^)(gcnew ShapeUnion());
-		for (int i = 0; i < this->controller->figures->Count; i++) {
-			if (this->controller->figures[i]->IsSelected) {
-				((ShapeUnion^)group)->figures->Add(this->controller->figures[i]->Copy());
+		for (int i = 0; i < controller->figures->Count; i++) {
+			if (controller->figures[i]->IsSelected) {
+				((ShapeUnion^)group)->figures->Add(controller->figures[i]->Copy());
 				controller->figures->RemoveAt(i);
 				i--;
 			}
@@ -518,10 +527,11 @@ namespace CourseWork {
 	}
 	
 	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
-		for (int i = 0; i < this->controller->figures->Count; i++) {
-			if (this->controller->figures[i]->IsSelected) {
+		CanvasController^ controller = CanvasController::GetInstance();
+		for (int i = 0; i < controller->figures->Count; i++) {
+			if (controller->figures[i]->IsSelected) {
 				System::String^ snapName =  "Item " + (controller->snapCarateker->SnaphotList->Count + 1);
-				this->controller->snapCarateker->AddSnaphot(this->controller->figures[i], snapName);
+				controller->snapCarateker->AddSnaphot(controller->figures[i], snapName);
 			}
 		}
 		UpdateLstSnaphots();
@@ -530,6 +540,7 @@ namespace CourseWork {
 	private: System::Void btnLoadFromLst_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (this->lstSnapshots->SelectedIndex != -1)
 		{
+			CanvasController^ controller = CanvasController::GetInstance();
 			Snapshot^ snap = controller->snapCarateker->SnaphotList[lstSnapshots->SelectedIndex];
 			if (snap != nullptr)
 			{
@@ -545,9 +556,8 @@ namespace CourseWork {
 	
 	private: void UpdateLstSnaphots()
 	{
+		CanvasController^ controller = CanvasController::GetInstance();
 		this->lstSnapshots->Items->Clear();
-		//this->lstSnapshots->DisplayMember = "snapName";
-		//this->lstSnapshots->ValueMember = "snapName";
 
 		for(int i = 0; i < controller->snapCarateker->SnaphotList->Count; i++)
 		{
@@ -556,8 +566,5 @@ namespace CourseWork {
 			this->lstSnapshots->SelectedIndex = -1;
 		}
 	}
-	
-private: System::Void erase_Click(System::Object^  sender, System::EventArgs^  e) {
-}
 };
 }

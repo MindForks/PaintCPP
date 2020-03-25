@@ -1,6 +1,6 @@
 #include "RectangleShape.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	RectangleShape::RectangleShape()
 	{

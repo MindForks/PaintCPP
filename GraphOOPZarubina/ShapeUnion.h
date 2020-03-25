@@ -1,7 +1,7 @@
 #pragma once
 #include "Figure.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 	ref class ShapeUnion :
 		public Figure
 	{

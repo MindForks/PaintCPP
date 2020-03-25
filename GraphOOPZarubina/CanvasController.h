@@ -3,10 +3,12 @@
 #include "Figure.h"
 #include "SnapshotCaretaker.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 	ref class CanvasController
 	{
 	private:
+		CanvasController(PictureBox^ box);
+		static CanvasController^ ref_instance;
 		PictureBox^ box;
 		Bitmap^ canvas;
 		Bitmap^ background;
@@ -14,10 +16,11 @@ namespace CourseWork {
 		Graphics^ gb;
 
 	public:
-		CanvasController(PictureBox^ box);
 		List<Figure^>^ figures;
 		Figure^ getObject(PointF^ point);
 		SnapshotCaretaker^ snapCarateker;
+		static CanvasController^ GetInstance();
+		static void InitInstance(PictureBox^ box);
 		void Refresh();
 		void Resize();
 		void DeselectAll();

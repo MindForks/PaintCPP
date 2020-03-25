@@ -1,6 +1,6 @@
 #include "TriangleShape.h"
 
-namespace CourseWork {
+namespace GraphicsCpp {
 
 	TriangleShape::TriangleShape()
 	{

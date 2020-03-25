@@ -1,7 +1,7 @@
 #include "Snapshot.h"
 
 
-namespace CourseWork
+namespace GraphicsCpp
 {
 	std::ostream & operator<<(std::ostream & out, const Snapshot ^ r)
 	{
