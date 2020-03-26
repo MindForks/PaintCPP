@@ -11,7 +11,7 @@ namespace GraphicsCpp {
 	{
 		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
+		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
@@ -21,7 +21,7 @@ namespace GraphicsCpp {
 		this->borderColor = borderColor;
 		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
+		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
@@ -36,7 +36,7 @@ namespace GraphicsCpp {
 		this->pen = snap->figure->pen;
 		this->brush = snap->figure->brush;
 
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Cyan, 2);
+		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
 		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 

@@ -65,10 +65,10 @@ namespace GraphicsCpp {
 
 
 
-	private: System::Windows::Forms::Label^  border;
 
 
-	private: System::Windows::Forms::Label^  fill;
+
+
 	private: System::Windows::Forms::ColorDialog^  colorDialog1;
 	private: System::Windows::Forms::TrackBar^  trackBar1;
 	private: System::Windows::Forms::Label^  label1;
@@ -80,6 +80,8 @@ namespace GraphicsCpp {
 	private: System::Windows::Forms::Button^  btnSaveSelected;
 	private: System::Windows::Forms::ListBox^  lstSnapshots;
 	private: System::Windows::Forms::Button^  btnLoadFromLst;
+	private: System::Windows::Forms::Button^  btnFill;
+	private: System::Windows::Forms::Button^  btnBorder;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -105,6 +107,8 @@ namespace GraphicsCpp {
 		{
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->btnBorder = (gcnew System::Windows::Forms::Button());
+			this->btnFill = (gcnew System::Windows::Forms::Button());
 			this->lstSnapshots = (gcnew System::Windows::Forms::ListBox());
 			this->btnLoadFromLst = (gcnew System::Windows::Forms::Button());
 			this->btnGroup = (gcnew System::Windows::Forms::Button());
@@ -112,8 +116,6 @@ namespace GraphicsCpp {
 			this->btnSaveSelected = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
-			this->border = (gcnew System::Windows::Forms::Label());
-			this->fill = (gcnew System::Windows::Forms::Label());
 			this->rbTriangle = (gcnew System::Windows::Forms::RadioButton());
 			this->rbEllipse = (gcnew System::Windows::Forms::RadioButton());
 			this->rbRectangle = (gcnew System::Windows::Forms::RadioButton());
@@ -145,6 +147,8 @@ namespace GraphicsCpp {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->panel1->Controls->Add(this->btnBorder);
+			this->panel1->Controls->Add(this->btnFill);
 			this->panel1->Controls->Add(this->lstSnapshots);
 			this->panel1->Controls->Add(this->btnLoadFromLst);
 			this->panel1->Controls->Add(this->btnGroup);
@@ -152,8 +156,6 @@ namespace GraphicsCpp {
 			this->panel1->Controls->Add(this->btnSaveSelected);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->trackBar1);
-			this->panel1->Controls->Add(this->border);
-			this->panel1->Controls->Add(this->fill);
 			this->panel1->Controls->Add(this->rbTriangle);
 			this->panel1->Controls->Add(this->rbEllipse);
 			this->panel1->Controls->Add(this->rbRectangle);
@@ -164,11 +166,40 @@ namespace GraphicsCpp {
 			this->panel1->Size = System::Drawing::Size(341, 1004);
 			this->panel1->TabIndex = 6;
 			// 
+			// btnBorder
+			// 
+			this->btnBorder->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnBorder->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.125F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->btnBorder->Location = System::Drawing::Point(175, 358);
+			this->btnBorder->Margin = System::Windows::Forms::Padding(6);
+			this->btnBorder->Name = L"btnBorder";
+			this->btnBorder->Size = System::Drawing::Size(150, 62);
+			this->btnBorder->TabIndex = 11;
+			this->btnBorder->Text = L"Граница";
+			this->btnBorder->UseVisualStyleBackColor = true;
+			this->btnBorder->Click += gcnew System::EventHandler(this, &MainForm::btnBorder_Click);
+			// 
+			// btnFill
+			// 
+			this->btnFill->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.125F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->btnFill->ForeColor = System::Drawing::Color::SkyBlue;
+			this->btnFill->Location = System::Drawing::Point(11, 358);
+			this->btnFill->Margin = System::Windows::Forms::Padding(6);
+			this->btnFill->Name = L"btnFill";
+			this->btnFill->Size = System::Drawing::Size(152, 62);
+			this->btnFill->TabIndex = 10;
+			this->btnFill->Text = L"Заливка";
+			this->btnFill->UseVisualStyleBackColor = true;
+			this->btnFill->Click += gcnew System::EventHandler(this, &MainForm::btnFill_Click);
+			// 
 			// lstSnapshots
 			// 
 			this->lstSnapshots->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->lstSnapshots->DisplayMember = L"snapName";
 			this->lstSnapshots->FormattingEnabled = true;
 			this->lstSnapshots->ItemHeight = 25;
 			this->lstSnapshots->Location = System::Drawing::Point(10, 508);
@@ -180,11 +211,11 @@ namespace GraphicsCpp {
 			// btnLoadFromLst
 			// 
 			this->btnLoadFromLst->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->btnLoadFromLst->Location = System::Drawing::Point(213, 918);
+			this->btnLoadFromLst->Location = System::Drawing::Point(175, 918);
 			this->btnLoadFromLst->Name = L"btnLoadFromLst";
-			this->btnLoadFromLst->Size = System::Drawing::Size(112, 79);
+			this->btnLoadFromLst->Size = System::Drawing::Size(150, 79);
 			this->btnLoadFromLst->TabIndex = 9;
-			this->btnLoadFromLst->Text = L"Load";
+			this->btnLoadFromLst->Text = L"Загрузить";
 			this->btnLoadFromLst->UseVisualStyleBackColor = true;
 			this->btnLoadFromLst->Click += gcnew System::EventHandler(this, &MainForm::btnLoadFromLst_Click);
 			// 
@@ -193,21 +224,21 @@ namespace GraphicsCpp {
 			this->btnGroup->Location = System::Drawing::Point(11, 280);
 			this->btnGroup->Margin = System::Windows::Forms::Padding(6);
 			this->btnGroup->Name = L"btnGroup";
-			this->btnGroup->Size = System::Drawing::Size(112, 62);
+			this->btnGroup->Size = System::Drawing::Size(152, 62);
 			this->btnGroup->TabIndex = 7;
-			this->btnGroup->Text = L"Group";
+			this->btnGroup->Text = L"Группа";
 			this->btnGroup->UseVisualStyleBackColor = true;
 			this->btnGroup->Click += gcnew System::EventHandler(this, &MainForm::group_Click);
 			// 
 			// btnClean
 			// 
 			this->btnClean->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnClean->Location = System::Drawing::Point(213, 280);
+			this->btnClean->Location = System::Drawing::Point(175, 280);
 			this->btnClean->Margin = System::Windows::Forms::Padding(6);
 			this->btnClean->Name = L"btnClean";
-			this->btnClean->Size = System::Drawing::Size(112, 62);
+			this->btnClean->Size = System::Drawing::Size(150, 62);
 			this->btnClean->TabIndex = 7;
-			this->btnClean->Text = L"Clean";
+			this->btnClean->Text = L"Отчистить";
 			this->btnClean->UseVisualStyleBackColor = true;
 			this->btnClean->Click += gcnew System::EventHandler(this, &MainForm::btnClean_Click);
 			// 
@@ -216,9 +247,9 @@ namespace GraphicsCpp {
 			this->btnSaveSelected->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->btnSaveSelected->Location = System::Drawing::Point(11, 918);
 			this->btnSaveSelected->Name = L"btnSaveSelected";
-			this->btnSaveSelected->Size = System::Drawing::Size(112, 79);
+			this->btnSaveSelected->Size = System::Drawing::Size(152, 79);
 			this->btnSaveSelected->TabIndex = 7;
-			this->btnSaveSelected->Text = L"Save";
+			this->btnSaveSelected->Text = L"Сохранить";
 			this->btnSaveSelected->UseVisualStyleBackColor = true;
 			this->btnSaveSelected->Click += gcnew System::EventHandler(this, &MainForm::btnSaveSelected_Click);
 			// 
@@ -249,45 +280,15 @@ namespace GraphicsCpp {
 			this->trackBar1->Value = 1;
 			this->trackBar1->Scroll += gcnew System::EventHandler(this, &MainForm::trackBar1_Scroll);
 			// 
-			// border
-			// 
-			this->border->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->border->BackColor = System::Drawing::Color::Black;
-			this->border->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->border->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->border->ForeColor = System::Drawing::Color::White;
-			this->border->Location = System::Drawing::Point(213, 364);
-			this->border->Margin = System::Windows::Forms::Padding(6);
-			this->border->Name = L"border";
-			this->border->Size = System::Drawing::Size(112, 62);
-			this->border->TabIndex = 4;
-			this->border->Text = L"Border";
-			this->border->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->border->Click += gcnew System::EventHandler(this, &MainForm::border_Click);
-			// 
-			// fill
-			// 
-			this->fill->BackColor = System::Drawing::Color::LightGray;
-			this->fill->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->fill->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->fill->Location = System::Drawing::Point(11, 364);
-			this->fill->Margin = System::Windows::Forms::Padding(6);
-			this->fill->Name = L"fill";
-			this->fill->Size = System::Drawing::Size(112, 62);
-			this->fill->TabIndex = 4;
-			this->fill->Text = L"Fill";
-			this->fill->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->fill->Click += gcnew System::EventHandler(this, &MainForm::fill_Click);
-			// 
 			// rbTriangle
 			// 
 			this->rbTriangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->rbTriangle->Location = System::Drawing::Point(11, 137);
+			this->rbTriangle->Location = System::Drawing::Point(11, 140);
 			this->rbTriangle->Margin = System::Windows::Forms::Padding(4);
 			this->rbTriangle->Name = L"rbTriangle";
 			this->rbTriangle->Size = System::Drawing::Size(225, 58);
 			this->rbTriangle->TabIndex = 0;
-			this->rbTriangle->Text = L"Triangle";
+			this->rbTriangle->Text = L"Треугольник";
 			this->rbTriangle->UseVisualStyleBackColor = true;
 			// 
 			// rbEllipse
@@ -298,7 +299,7 @@ namespace GraphicsCpp {
 			this->rbEllipse->Name = L"rbEllipse";
 			this->rbEllipse->Size = System::Drawing::Size(225, 58);
 			this->rbEllipse->TabIndex = 0;
-			this->rbEllipse->Text = L"Ellipse";
+			this->rbEllipse->Text = L"Элипс";
 			this->rbEllipse->UseVisualStyleBackColor = true;
 			// 
 			// rbRectangle
@@ -309,7 +310,7 @@ namespace GraphicsCpp {
 			this->rbRectangle->Name = L"rbRectangle";
 			this->rbRectangle->Size = System::Drawing::Size(225, 58);
 			this->rbRectangle->TabIndex = 0;
-			this->rbRectangle->Text = L"Rectangle";
+			this->rbRectangle->Text = L"Прямоугольник";
 			this->rbRectangle->UseVisualStyleBackColor = true;
 			// 
 			// rbPointer
@@ -322,7 +323,7 @@ namespace GraphicsCpp {
 			this->rbPointer->Size = System::Drawing::Size(225, 58);
 			this->rbPointer->TabIndex = 0;
 			this->rbPointer->TabStop = true;
-			this->rbPointer->Text = L"Pointer";
+			this->rbPointer->Text = L"Указатель";
 			this->rbPointer->UseVisualStyleBackColor = true;
 			// 
 			// MainForm
@@ -336,7 +337,7 @@ namespace GraphicsCpp {
 			this->Margin = System::Windows::Forms::Padding(6);
 			this->MinimumSize = System::Drawing::Size(1200, 1000);
 			this->Name = L"MainForm";
-			this->Text = L"Course Work : Zazubina A. PZ-17-1";
+			this->Text = L"Графический редактор";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MainForm::MainForm_KeyDown);
 			this->Resize += gcnew System::EventHandler(this, &MainForm::MainForm_Resize);
@@ -392,8 +393,8 @@ namespace GraphicsCpp {
 		}
 		if (last_figure != nullptr && rbPointer->Checked == false) {
 			if (!multiselect) {
-				last_figure->Color = fill->BackColor;
-				last_figure->BorderColor = border->BackColor;
+				last_figure->Color = btnFill->ForeColor;
+				last_figure->BorderColor = btnBorder->ForeColor;
 				last_figure->BorderWidth = trackBar1->Value;
 			}
 			controller->figures->Add(last_figure);
@@ -447,29 +448,31 @@ namespace GraphicsCpp {
 	}
 
 	private: System::Void fill_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+
+	private: System::Void border_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	}
+	private: System::Void btnFill_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
-		fill->BackColor = colorDialog1->Color;
-		fill->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
+		btnFill->ForeColor = colorDialog1->Color;
 
 		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
-				figure->Color = fill->BackColor;
+				figure->Color = btnFill->ForeColor;
 			}
 		}
 		controller->Refresh();
 	}
-
-	private: System::Void border_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void btnBorder_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
-		border->BackColor = colorDialog1->Color;
-		border->ForeColor = Color::FromArgb(255 - colorDialog1->Color.R, 255 - colorDialog1->Color.G, 255 - colorDialog1->Color.B);
-
+		btnBorder->ForeColor = colorDialog1->Color;
 
 		for each (Figure^ figure in controller->figures) {
 			if (figure->IsSelected) {
-				figure->BorderColor = border->BackColor;
+				figure->BorderColor = btnBorder->ForeColor;
 			}
 		}
 		controller->Refresh();
