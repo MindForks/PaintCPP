@@ -18,26 +18,23 @@ namespace GraphicsCpp {
 	public ref class Figure // composite
 	{
 	private:
-		
 		PointF^ dragPosition;  //used when we calculate drag delta
-		void BindPositionToFormSize(PointF^ newpos, Size size); // to perevent moving out of borders
+	
 	protected:
-		Pen^ selectionPen;
 		System::Drawing::Color color = System::Drawing::Color::LightGray;
 		System::Drawing::Color borderColor = System::Drawing::Color::Black;
 		float borderWidth = 0;
 		PointF^ position = gcnew PointF(0, 0);
 		float width = 0;
 		float height = 0;
-		
 		Pen^ pen;
 		SolidBrush^ brush;
 		bool isSelected;
-
 	
 	public:
 		virtual void UpdateCollisionShape();
 		array<PointF>^ collisionShape;
+		Pen^ selectionPen;
 
 		Figure();
 		Figure(System::Drawing::Color color, System::Drawing::Color borderColor);
@@ -124,6 +121,7 @@ namespace GraphicsCpp {
 		virtual void StartDrag(PointF^ point); // to save startpoint of drag
 		virtual void Drag(PointF^ point, Size size);
 		virtual void FitRectangle(PointF^ point1, PointF^ point2); // update size acording to points
+		virtual void BindPositionToFormSize(PointF^ newpos, Size size); // to perevent moving out of borders
 
 		virtual Figure^ Copy(); // prototype pattern
 	};

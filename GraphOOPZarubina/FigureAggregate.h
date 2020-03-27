@@ -7,10 +7,12 @@ namespace GraphicsCpp {
 	{
 
 	public:
-		List<Figure^>^ figures;
-		virtual void UpdateCollisionShape() override;
 		FigureAggregate();
+		List<Figure^>^ figures;
 		virtual void UpdateSize();
+		void InitPositionOnCreate();
+		virtual void UpdateCollisionShape() override;
+
 		// properties:
 		virtual property System::Drawing::Color Color {
 			virtual System::Drawing::Color get() override {

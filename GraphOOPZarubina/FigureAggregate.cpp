@@ -61,6 +61,11 @@ namespace GraphicsCpp {
 		this->height = this->Height;
 	}
 
+	void FigureAggregate::InitPositionOnCreate()
+	{
+		this->position = gcnew PointF(this->Left, this->Top);
+	}
+
 	Figure ^ FigureAggregate::Copy()
 	{
 		FigureAggregate^ figure = gcnew FigureAggregate();

@@ -12,8 +12,8 @@ namespace GraphicsCpp {
 			newpos->Y = 0;
 		if (newpos->Y + this->Height + 5> size.Height)
 			newpos->Y = size.Height - this->Height - 5;
-
 	}
+
 	void Figure::UpdateCollisionShape()
 	{
 		throw gcnew System::NotImplementedException();

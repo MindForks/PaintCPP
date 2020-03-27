@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Figure.h"
+#include "FigureAggregate.h"
 #include "Caretaker.h"
 
 namespace GraphicsCpp {
@@ -28,6 +29,7 @@ namespace GraphicsCpp {
 		void SelectByIntersection(Figure^ figure);
 		void StartDragSelected(PointF^ point);
 		void RemoveSelected();
+		void UpdateSelectionPen(System::Drawing::Color newColor);
 		void DiformateFiguresWhenTouch();
 		void Explode();
 

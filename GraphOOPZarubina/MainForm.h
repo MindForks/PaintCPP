@@ -114,6 +114,7 @@ namespace GraphicsCpp {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->ckbTrace = (gcnew System::Windows::Forms::CheckBox());
 			this->ckbMoveToBorders = (gcnew System::Windows::Forms::CheckBox());
 			this->ckbDiformate = (gcnew System::Windows::Forms::CheckBox());
 			this->btnBorder = (gcnew System::Windows::Forms::Button());
@@ -131,7 +132,6 @@ namespace GraphicsCpp {
 			this->rbPointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->ckbTrace = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -179,6 +179,17 @@ namespace GraphicsCpp {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(341, 1004);
 			this->panel1->TabIndex = 6;
+			// 
+			// ckbTrace
+			// 
+			this->ckbTrace->AutoSize = true;
+			this->ckbTrace->Location = System::Drawing::Point(9, 282);
+			this->ckbTrace->Name = L"ckbTrace";
+			this->ckbTrace->Size = System::Drawing::Size(296, 29);
+			this->ckbTrace->TabIndex = 15;
+			this->ckbTrace->Text = L"Перемещение со следом";
+			this->ckbTrace->UseVisualStyleBackColor = true;
+			this->ckbTrace->CheckedChanged += gcnew System::EventHandler(this, &MainForm::ckbTrace_CheckedChanged);
 			// 
 			// ckbMoveToBorders
 			// 
@@ -366,16 +377,6 @@ namespace GraphicsCpp {
 			this->timer1->Interval = 10;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
 			// 
-			// ckbTrace
-			// 
-			this->ckbTrace->AutoSize = true;
-			this->ckbTrace->Location = System::Drawing::Point(9, 282);
-			this->ckbTrace->Name = L"ckbTrace";
-			this->ckbTrace->Size = System::Drawing::Size(296, 29);
-			this->ckbTrace->TabIndex = 15;
-			this->ckbTrace->Text = L"Перемещение со следом";
-			this->ckbTrace->UseVisualStyleBackColor = true;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
@@ -449,6 +450,7 @@ namespace GraphicsCpp {
 				last_figure->BorderWidth = trackBar1->Value;
 			}
 			controller->figures->Add(last_figure);
+			ckbTrace_CheckedChanged(sender, e);
 		}
 		controller->Refresh(false);
 		is_mouse_down = true;
@@ -573,9 +575,9 @@ namespace GraphicsCpp {
 				i--;
 			}
 		}
-		// controller->figures->RemoveAt()
 		((FigureAggregate^)group)->UpdateSize();
 		((FigureAggregate^)group)->IsSelected = true;
+		((FigureAggregate^)group)->InitPositionOnCreate();
 		controller->figures->Add(group);
 		controller->Refresh(false);
 	}
@@ -627,6 +629,17 @@ namespace GraphicsCpp {
 	}
 	private: System::Void ckbMoveToBorders_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		timer1->Enabled = !timer1->Enabled;
+	}
+	private: System::Void ckbTrace_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		PictureController^ controller = PictureController::GetInstance();
+
+		System::Drawing::Color color;
+		if (ckbTrace->Checked)
+			color = System::Drawing::Color::Transparent;
+		else
+			color = System::Drawing::Color::Blue;
+
+		controller->UpdateSelectionPen(color);
 	}
 };
 }
