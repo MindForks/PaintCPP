@@ -83,8 +83,10 @@ namespace GraphicsCpp {
 	private: System::Windows::Forms::Button^  btnFill;
 	private: System::Windows::Forms::Button^  btnBorder;
 	private: System::Windows::Forms::CheckBox^  ckbDiformate;
-	private: System::Windows::Forms::Button^  btnMoveToBorders;
+
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::CheckBox^  ckbMoveToBorders;
+	private: System::Windows::Forms::CheckBox^  ckbTrace;
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -112,7 +114,7 @@ namespace GraphicsCpp {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->btnMoveToBorders = (gcnew System::Windows::Forms::Button());
+			this->ckbMoveToBorders = (gcnew System::Windows::Forms::CheckBox());
 			this->ckbDiformate = (gcnew System::Windows::Forms::CheckBox());
 			this->btnBorder = (gcnew System::Windows::Forms::Button());
 			this->btnFill = (gcnew System::Windows::Forms::Button());
@@ -129,6 +131,7 @@ namespace GraphicsCpp {
 			this->rbPointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->ckbTrace = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -155,7 +158,8 @@ namespace GraphicsCpp {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
-			this->panel1->Controls->Add(this->btnMoveToBorders);
+			this->panel1->Controls->Add(this->ckbTrace);
+			this->panel1->Controls->Add(this->ckbMoveToBorders);
 			this->panel1->Controls->Add(this->ckbDiformate);
 			this->panel1->Controls->Add(this->btnBorder);
 			this->panel1->Controls->Add(this->btnFill);
@@ -176,15 +180,16 @@ namespace GraphicsCpp {
 			this->panel1->Size = System::Drawing::Size(341, 1004);
 			this->panel1->TabIndex = 6;
 			// 
-			// btnMoveToBorders
+			// ckbMoveToBorders
 			// 
-			this->btnMoveToBorders->Location = System::Drawing::Point(175, 221);
-			this->btnMoveToBorders->Name = L"btnMoveToBorders";
-			this->btnMoveToBorders->Size = System::Drawing::Size(150, 45);
-			this->btnMoveToBorders->TabIndex = 13;
-			this->btnMoveToBorders->Text = L"Движение";
-			this->btnMoveToBorders->UseVisualStyleBackColor = true;
-			this->btnMoveToBorders->Click += gcnew System::EventHandler(this, &MainForm::btnMoveToBorders_Click);
+			this->ckbMoveToBorders->AutoSize = true;
+			this->ckbMoveToBorders->Location = System::Drawing::Point(187, 230);
+			this->ckbMoveToBorders->Name = L"ckbMoveToBorders";
+			this->ckbMoveToBorders->Size = System::Drawing::Size(146, 29);
+			this->ckbMoveToBorders->TabIndex = 14;
+			this->ckbMoveToBorders->Text = L"Движение";
+			this->ckbMoveToBorders->UseVisualStyleBackColor = true;
+			this->ckbMoveToBorders->CheckedChanged += gcnew System::EventHandler(this, &MainForm::ckbMoveToBorders_CheckedChanged);
 			// 
 			// ckbDiformate
 			// 
@@ -201,7 +206,7 @@ namespace GraphicsCpp {
 			this->btnBorder->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->btnBorder->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.125F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btnBorder->Location = System::Drawing::Point(175, 358);
+			this->btnBorder->Location = System::Drawing::Point(175, 404);
 			this->btnBorder->Margin = System::Windows::Forms::Padding(6);
 			this->btnBorder->Name = L"btnBorder";
 			this->btnBorder->Size = System::Drawing::Size(150, 62);
@@ -215,7 +220,7 @@ namespace GraphicsCpp {
 			this->btnFill->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.125F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->btnFill->ForeColor = System::Drawing::Color::SkyBlue;
-			this->btnFill->Location = System::Drawing::Point(11, 358);
+			this->btnFill->Location = System::Drawing::Point(11, 404);
 			this->btnFill->Margin = System::Windows::Forms::Padding(6);
 			this->btnFill->Name = L"btnFill";
 			this->btnFill->Size = System::Drawing::Size(152, 62);
@@ -232,9 +237,9 @@ namespace GraphicsCpp {
 			this->lstSnapshots->DisplayMember = L"snapName";
 			this->lstSnapshots->FormattingEnabled = true;
 			this->lstSnapshots->ItemHeight = 25;
-			this->lstSnapshots->Location = System::Drawing::Point(10, 508);
+			this->lstSnapshots->Location = System::Drawing::Point(10, 558);
 			this->lstSnapshots->Name = L"lstSnapshots";
-			this->lstSnapshots->Size = System::Drawing::Size(315, 404);
+			this->lstSnapshots->Size = System::Drawing::Size(315, 354);
 			this->lstSnapshots->TabIndex = 8;
 			this->lstSnapshots->ValueMember = L"snapName";
 			// 
@@ -251,7 +256,7 @@ namespace GraphicsCpp {
 			// 
 			// btnGroup
 			// 
-			this->btnGroup->Location = System::Drawing::Point(11, 280);
+			this->btnGroup->Location = System::Drawing::Point(11, 326);
 			this->btnGroup->Margin = System::Windows::Forms::Padding(6);
 			this->btnGroup->Name = L"btnGroup";
 			this->btnGroup->Size = System::Drawing::Size(152, 62);
@@ -263,7 +268,7 @@ namespace GraphicsCpp {
 			// btnClean
 			// 
 			this->btnClean->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnClean->Location = System::Drawing::Point(175, 280);
+			this->btnClean->Location = System::Drawing::Point(175, 326);
 			this->btnClean->Margin = System::Windows::Forms::Padding(6);
 			this->btnClean->Name = L"btnClean";
 			this->btnClean->Size = System::Drawing::Size(150, 62);
@@ -287,7 +292,7 @@ namespace GraphicsCpp {
 			// 
 			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->label1->Location = System::Drawing::Point(11, 479);
+			this->label1->Location = System::Drawing::Point(11, 516);
 			this->label1->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(315, 33);
@@ -300,7 +305,7 @@ namespace GraphicsCpp {
 			this->trackBar1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->trackBar1->AutoSize = false;
-			this->trackBar1->Location = System::Drawing::Point(15, 432);
+			this->trackBar1->Location = System::Drawing::Point(11, 475);
 			this->trackBar1->Margin = System::Windows::Forms::Padding(6);
 			this->trackBar1->Maximum = 20;
 			this->trackBar1->Minimum = 1;
@@ -360,6 +365,16 @@ namespace GraphicsCpp {
 			// 
 			this->timer1->Interval = 10;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
+			// 
+			// ckbTrace
+			// 
+			this->ckbTrace->AutoSize = true;
+			this->ckbTrace->Location = System::Drawing::Point(9, 282);
+			this->ckbTrace->Name = L"ckbTrace";
+			this->ckbTrace->Size = System::Drawing::Size(296, 29);
+			this->ckbTrace->TabIndex = 15;
+			this->ckbTrace->Text = L"Перемещение со следом";
+			this->ckbTrace->UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
@@ -435,7 +450,7 @@ namespace GraphicsCpp {
 			}
 			controller->figures->Add(last_figure);
 		}
-		controller->Refresh();
+		controller->Refresh(false);
 		is_mouse_down = true;
 	}
 
@@ -448,7 +463,7 @@ namespace GraphicsCpp {
 			last_figure = nullptr;
 			multiselect = false;
 		}
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 
 	private: System::Void pictureBox1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -467,11 +482,13 @@ namespace GraphicsCpp {
 				{
 					controller->DiformateFiguresWhenTouch();
 				}
+				controller->Refresh(ckbTrace->Checked);
 			}
 			else if (rbRectangle->Checked || rbEllipse->Checked || rbTriangle->Checked) {
 				last_figure->FitRectangle(PointF(e->X, e->Y), create_pos);
+				controller->Refresh(false);
+
 			}
-			controller->Refresh();
 		}
 	}
 
@@ -483,16 +500,10 @@ namespace GraphicsCpp {
 		if (e->KeyCode == Keys::Delete) {
 			PictureController^ controller = PictureController::GetInstance();
 			controller->RemoveSelected();
-			controller->Refresh();
+			controller->Refresh(false);
 		}
 	}
 
-	private: System::Void fill_Click(System::Object^  sender, System::EventArgs^  e) {
-	}
-
-	private: System::Void border_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	}
 	private: System::Void btnFill_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
@@ -503,7 +514,7 @@ namespace GraphicsCpp {
 				figure->Color = btnFill->ForeColor;
 			}
 		}
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 	private: System::Void btnBorder_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
@@ -515,7 +526,7 @@ namespace GraphicsCpp {
 				figure->BorderColor = btnBorder->ForeColor;
 			}
 		}
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
@@ -527,7 +538,7 @@ namespace GraphicsCpp {
 				figure->BorderWidth = trackBar1->Value;
 			}
 		}
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 
 	private: System::Void btnClean_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -535,7 +546,7 @@ namespace GraphicsCpp {
 		controller->figures->Clear();
 		controller->snapCarateker = gcnew Caretaker();
 		lstSnapshots->Items->Clear();
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 
 	private: System::Void MainForm_Resize(System::Object^  sender, System::EventArgs^  e) {
@@ -543,7 +554,7 @@ namespace GraphicsCpp {
 		if (controller != nullptr)
 		{
 			controller->Resize();
-			controller->Refresh();
+			controller->Refresh(false);
 		}
 		else
 		{
@@ -566,7 +577,7 @@ namespace GraphicsCpp {
 		((FigureAggregate^)group)->UpdateSize();
 		((FigureAggregate^)group)->IsSelected = true;
 		controller->figures->Add(group);
-		controller->Refresh();
+		controller->Refresh(false);
 	}
 	
 	private: System::Void btnSaveSelected_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -591,7 +602,7 @@ namespace GraphicsCpp {
 				Figure^ figureToAdd = controller->snapCarateker->RestoreFromSnapshot(snap)->Copy();
 				figureToAdd->IsSelected = true;
 				controller->figures->Add(figureToAdd);
-				controller->Refresh();
+				controller->Refresh(false);
 				UpdateLstSnaphots();
 			}
 		}
@@ -609,13 +620,13 @@ namespace GraphicsCpp {
 			this->lstSnapshots->SelectedIndex = -1;
 		}
 	}
-	private: System::Void btnMoveToBorders_Click(System::Object^  sender, System::EventArgs^  e) {
-		timer1->Enabled = !timer1->Enabled;
-	}
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		controller->Explode();
-		controller->Refresh();
+		controller->Refresh(false);
+	}
+	private: System::Void ckbMoveToBorders_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		timer1->Enabled = !timer1->Enabled;
 	}
 };
 }

@@ -20,7 +20,7 @@ namespace GraphicsCpp {
 	private:
 		
 		PointF^ dragPosition;  //used when we calculate drag delta
-		void bindPositionToFormSize(PointF^ newpos, Size size); // to perevent moving out of borders
+		void BindPositionToFormSize(PointF^ newpos, Size size); // to perevent moving out of borders
 	protected:
 		Pen^ selectionPen;
 		System::Drawing::Color color = System::Drawing::Color::LightGray;

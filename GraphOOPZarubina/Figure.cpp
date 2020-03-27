@@ -1,7 +1,7 @@
 #include "Figure.h"
 
 namespace GraphicsCpp {
-	void Figure::bindPositionToFormSize(PointF ^ newpos, Size size)
+	void Figure::BindPositionToFormSize(PointF ^ newpos, Size size)
 	{
 		if (newpos->X < 0)
 			newpos->X = 0;
@@ -65,7 +65,7 @@ namespace GraphicsCpp {
 			y = (float)size.Height / 2.0f;
 			o_x = this->Left + this->Width / 2.0f;
 			o_y = this->Top + this->Height / 2.0f;
-			this->Position = PointF(this->Position->X + (o_x - x) * 0.1f, this->Position->Y + (o_y - y) * 0.1f);
+			this->Position = PointF(this->Position->X + (o_x - x) * 0.01f, this->Position->Y + (o_y - y) * 0.01f);
 		}
 	}
 
@@ -129,7 +129,7 @@ namespace GraphicsCpp {
 	void Figure::Drag(PointF^ point, Size size)
 	{
 		PointF^ newpositon = gcnew PointF(point->X - this->dragPosition->X, point->Y - this->dragPosition->Y);
-		bindPositionToFormSize(newpositon, size);
+		BindPositionToFormSize(newpositon, size);
 		this->Position = newpositon;
 	}
 

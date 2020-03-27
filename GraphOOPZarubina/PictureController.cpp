@@ -38,9 +38,11 @@ namespace GraphicsCpp {
 		return nullptr;
 	}
 
-	void PictureController::Refresh() {
-		this->g->Clear(System::Drawing::Color::White);
-		//this->g->DrawImage((Image^)this->background, 0, 0);
+	void PictureController::Refresh(bool shouldMoveWithTrace) {
+		if (!shouldMoveWithTrace)
+		{
+			this->g->Clear(System::Drawing::Color::White);
+		}
 		for each (Figure^ figure in this->figures) {
 			if (figure->IsSelected) {
 				figure->DrawWithSelection(this->g);

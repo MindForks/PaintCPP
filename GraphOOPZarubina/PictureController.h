@@ -21,7 +21,7 @@ namespace GraphicsCpp {
 		Caretaker^ snapCarateker;
 		static PictureController^ GetInstance();
 		static void InitInstance(PictureBox^ box);
-		void Refresh();
+		void Refresh(bool shouldMoveWithTrace);
 		void Resize();
 		void DeselectAll();
 		void DragSelected(PointF^ point);
