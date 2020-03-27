@@ -70,7 +70,7 @@ namespace GraphicsCpp {
 	{
 		for each (Figure^ figure in this->figures) {
 			if (figure->IsSelected) {
-				figure->Drag(point);
+				figure->Drag(point, this->box->Size);
 			}
 		}
 	}
@@ -99,6 +99,23 @@ namespace GraphicsCpp {
 			if (figure != fig && (figure->CheckColision(fig) || fig->CheckColision(figure))) {
 				fig->IsSelected = true;
 			}
+		}
+	}
+	void PictureController::DiformateFiguresWhenTouch()
+	{
+		for each (Figure^ fig1 in this->figures) {
+			if (fig1->IsSelected) {
+				for each (Figure^ fig2 in this->figures) {
+					if (!fig2->IsSelected && fig2->CheckColision(fig1)) {
+						fig2->Diformate();
+					}
+				}
+			}
+		}
+	}
+	void PictureController::Explode() {
+		for each (Figure^ figure in this->figures) {
+			figure->Animate(this->box->Size);
 		}
 	}
 }

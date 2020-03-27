@@ -1,7 +1,19 @@
 #include "Figure.h"
 
 namespace GraphicsCpp {
+	void Figure::bindPositionToFormSize(PointF ^ newpos, Size size)
+	{
+		if (newpos->X < 0)
+			newpos->X = 0;
+		if (newpos->X + this->Width + 5> size.Width)
+			newpos->X = size.Width - this->Width - 5;
 
+		if (newpos->Y < 0)
+			newpos->Y = 0;
+		if (newpos->Y + this->Height + 5> size.Height)
+			newpos->Y = size.Height - this->Height - 5;
+
+	}
 	void Figure::UpdateCollisionShape()
 	{
 		throw gcnew System::NotImplementedException();
@@ -45,6 +57,37 @@ namespace GraphicsCpp {
 	{
 	}
 
+	void Figure::Animate(Size size)
+	{
+		if (!this->CheckBorder(size)) {
+			float x, y, o_x, o_y;
+			x = (float)size.Width / 2.0f;
+			y = (float)size.Height / 2.0f;
+			o_x = this->Left + this->Width / 2.0f;
+			o_y = this->Top + this->Height / 2.0f;
+			this->Position = PointF(this->Position->X + (o_x - x) * 0.1f, this->Position->Y + (o_y - y) * 0.1f);
+		}
+	}
+
+	void Figure::Diformate()
+	{
+		if (this->Height > 4) {
+			this->Position = gcnew PointF((float)this->Position->X - 0.2f, this->Position->Y);
+			this->Width += 0.5f;
+
+			this->Position = gcnew PointF(this->Position->X, (float)this->Position->Y + 0.2f);
+			this->Height -= 0.5f;
+		}
+	}
+
+	bool Figure::CheckBorder(Size size) {
+		return
+			this->Left < 0 ||
+			this->Right > size.Width ||
+			this->Top < 0 ||
+			this->Bottom > size.Height;
+	}
+
 	bool Figure::CheckPoint(PointF^ point) {
 		throw gcnew System::NotImplementedException();
 	}
@@ -83,9 +126,11 @@ namespace GraphicsCpp {
 		this->dragPosition = gcnew PointF(point->X - this->Position->X, point->Y - this->Position->Y);
 	}
 
-	void Figure::Drag(PointF^ point)
+	void Figure::Drag(PointF^ point, Size size)
 	{
-		this->Position = gcnew PointF(point->X - this->dragPosition->X, point->Y - this->dragPosition->Y);
+		PointF^ newpositon = gcnew PointF(point->X - this->dragPosition->X, point->Y - this->dragPosition->Y);
+		bindPositionToFormSize(newpositon, size);
+		this->Position = newpositon;
 	}
 
 	void Figure::FitRectangle(PointF ^ point1, PointF ^ point2)

@@ -20,7 +20,7 @@ namespace GraphicsCpp {
 	private:
 		
 		PointF^ dragPosition;  //used when we calculate drag delta
-
+		void bindPositionToFormSize(PointF^ newpos, Size size); // to perevent moving out of borders
 	protected:
 		Pen^ selectionPen;
 		System::Drawing::Color color = System::Drawing::Color::LightGray;
@@ -114,12 +114,15 @@ namespace GraphicsCpp {
 			virtual void set(bool value) { this->isSelected = value; }
 		}
 
+		virtual void Animate(Size size);
+		virtual void Diformate();
+		virtual bool CheckBorder(Size size);
 		virtual bool CheckPoint(PointF^ point);
 		virtual bool CheckColision(Figure^ figure);
 		virtual void Draw(Graphics^ g);
 		virtual void DrawWithSelection(Graphics^ g);
 		virtual void StartDrag(PointF^ point); // to save startpoint of drag
-		virtual void Drag(PointF^ point);
+		virtual void Drag(PointF^ point, Size size);
 		virtual void FitRectangle(PointF^ point1, PointF^ point2); // update size acording to points
 
 		virtual Figure^ Copy(); // prototype pattern

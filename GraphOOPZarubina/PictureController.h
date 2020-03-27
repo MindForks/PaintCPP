@@ -28,6 +28,9 @@ namespace GraphicsCpp {
 		void SelectByIntersection(Figure^ figure);
 		void StartDragSelected(PointF^ point);
 		void RemoveSelected();
+		void DiformateFiguresWhenTouch();
+		void Explode();
+
 	};
 }
 

@@ -82,6 +82,10 @@ namespace GraphicsCpp {
 	private: System::Windows::Forms::Button^  btnLoadFromLst;
 	private: System::Windows::Forms::Button^  btnFill;
 	private: System::Windows::Forms::Button^  btnBorder;
+	private: System::Windows::Forms::CheckBox^  ckbDiformate;
+	private: System::Windows::Forms::Button^  btnMoveToBorders;
+	private: System::Windows::Forms::Timer^  timer1;
+
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -105,8 +109,11 @@ namespace GraphicsCpp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->btnMoveToBorders = (gcnew System::Windows::Forms::Button());
+			this->ckbDiformate = (gcnew System::Windows::Forms::CheckBox());
 			this->btnBorder = (gcnew System::Windows::Forms::Button());
 			this->btnFill = (gcnew System::Windows::Forms::Button());
 			this->lstSnapshots = (gcnew System::Windows::Forms::ListBox());
@@ -121,6 +128,7 @@ namespace GraphicsCpp {
 			this->rbRectangle = (gcnew System::Windows::Forms::RadioButton());
 			this->rbPointer = (gcnew System::Windows::Forms::RadioButton());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
@@ -147,6 +155,8 @@ namespace GraphicsCpp {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->panel1->Controls->Add(this->btnMoveToBorders);
+			this->panel1->Controls->Add(this->ckbDiformate);
 			this->panel1->Controls->Add(this->btnBorder);
 			this->panel1->Controls->Add(this->btnFill);
 			this->panel1->Controls->Add(this->lstSnapshots);
@@ -165,6 +175,26 @@ namespace GraphicsCpp {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(341, 1004);
 			this->panel1->TabIndex = 6;
+			// 
+			// btnMoveToBorders
+			// 
+			this->btnMoveToBorders->Location = System::Drawing::Point(175, 221);
+			this->btnMoveToBorders->Name = L"btnMoveToBorders";
+			this->btnMoveToBorders->Size = System::Drawing::Size(150, 45);
+			this->btnMoveToBorders->TabIndex = 13;
+			this->btnMoveToBorders->Text = L"Движение";
+			this->btnMoveToBorders->UseVisualStyleBackColor = true;
+			this->btnMoveToBorders->Click += gcnew System::EventHandler(this, &MainForm::btnMoveToBorders_Click);
+			// 
+			// ckbDiformate
+			// 
+			this->ckbDiformate->AutoSize = true;
+			this->ckbDiformate->Location = System::Drawing::Point(10, 230);
+			this->ckbDiformate->Name = L"ckbDiformate";
+			this->ckbDiformate->Size = System::Drawing::Size(175, 29);
+			this->ckbDiformate->TabIndex = 12;
+			this->ckbDiformate->Text = L"Деформация";
+			this->ckbDiformate->UseVisualStyleBackColor = true;
 			// 
 			// btnBorder
 			// 
@@ -283,7 +313,7 @@ namespace GraphicsCpp {
 			// rbTriangle
 			// 
 			this->rbTriangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->rbTriangle->Location = System::Drawing::Point(11, 140);
+			this->rbTriangle->Location = System::Drawing::Point(11, 115);
 			this->rbTriangle->Margin = System::Windows::Forms::Padding(4);
 			this->rbTriangle->Name = L"rbTriangle";
 			this->rbTriangle->Size = System::Drawing::Size(225, 58);
@@ -294,7 +324,7 @@ namespace GraphicsCpp {
 			// rbEllipse
 			// 
 			this->rbEllipse->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->rbEllipse->Location = System::Drawing::Point(11, 203);
+			this->rbEllipse->Location = System::Drawing::Point(11, 165);
 			this->rbEllipse->Margin = System::Windows::Forms::Padding(4);
 			this->rbEllipse->Name = L"rbEllipse";
 			this->rbEllipse->Size = System::Drawing::Size(225, 58);
@@ -305,7 +335,7 @@ namespace GraphicsCpp {
 			// rbRectangle
 			// 
 			this->rbRectangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->rbRectangle->Location = System::Drawing::Point(11, 78);
+			this->rbRectangle->Location = System::Drawing::Point(11, 65);
 			this->rbRectangle->Margin = System::Windows::Forms::Padding(4);
 			this->rbRectangle->Name = L"rbRectangle";
 			this->rbRectangle->Size = System::Drawing::Size(225, 58);
@@ -326,6 +356,11 @@ namespace GraphicsCpp {
 			this->rbPointer->Text = L"Указатель";
 			this->rbPointer->UseVisualStyleBackColor = true;
 			// 
+			// timer1
+			// 
+			this->timer1->Interval = 10;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
@@ -343,6 +378,7 @@ namespace GraphicsCpp {
 			this->Resize += gcnew System::EventHandler(this, &MainForm::MainForm_Resize);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->canvas))->EndInit();
 			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->EndInit();
 			this->ResumeLayout(false);
 
@@ -426,6 +462,10 @@ namespace GraphicsCpp {
 				}
 				else {
 					controller->DragSelected(PointF(e->X, e->Y));
+				}
+				if (ckbDiformate->Checked)
+				{
+					controller->DiformateFiguresWhenTouch();
 				}
 			}
 			else if (rbRectangle->Checked || rbEllipse->Checked || rbTriangle->Checked) {
@@ -568,6 +608,14 @@ namespace GraphicsCpp {
 			this->lstSnapshots->Items->Add((i+1) + ". " +item->snapName);
 			this->lstSnapshots->SelectedIndex = -1;
 		}
+	}
+	private: System::Void btnMoveToBorders_Click(System::Object^  sender, System::EventArgs^  e) {
+		timer1->Enabled = !timer1->Enabled;
+	}
+	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+		PictureController^ controller = PictureController::GetInstance();
+		controller->Explode();
+		controller->Refresh();
 	}
 };
 }
