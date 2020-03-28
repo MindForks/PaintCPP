@@ -23,8 +23,6 @@ namespace GraphicsCpp {
 	{
 		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
-		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
 	Figure::Figure(System::Drawing::Color color, System::Drawing::Color borderColor)
@@ -33,8 +31,6 @@ namespace GraphicsCpp {
 		this->borderColor = borderColor;
 		this->pen = gcnew Pen(this->borderColor, this->borderWidth);
 		this->brush = gcnew SolidBrush(this->color);
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
-		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
 	Figure::Figure(Snapshot ^ snap)
@@ -47,9 +43,6 @@ namespace GraphicsCpp {
 		this->width = snap->figure->width;
 		this->pen = snap->figure->pen;
 		this->brush = snap->figure->brush;
-
-		this->selectionPen = gcnew Pen(System::Drawing::Color::Blue, 2);
-		this->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
 	}
 
 
@@ -113,12 +106,14 @@ namespace GraphicsCpp {
 	void Figure::DrawWithSelection(Graphics^ g)
 	{
 		this->Draw(g);
-		g->DrawRectangle(this->selectionPen, this->Left, this->Top, this->width, this->height);
+		Pen^ selectionPen = Settings::GetSelectionPen();
 
-		g->DrawRectangle(this->selectionPen, this->Left - 2.0f, this->Top - 2.0f, 4.0f, 4.0f);
-		g->DrawRectangle(this->selectionPen, this->Right - 2.0f, this->Top - 2.0f, 4.0f, 4.0f);
-		g->DrawRectangle(this->selectionPen, this->Right - 2.0f, this->Bottom - 2.0f, 4.0f, 4.0f);
-		g->DrawRectangle(this->selectionPen, this->Left - 2.0f, this->Bottom - 2.0f, 4.0f, 4.0f);
+		g->DrawRectangle(selectionPen, this->Left, this->Top, this->width, this->height);
+
+		g->DrawRectangle(selectionPen, this->Left - 2.0f, this->Top - 2.0f, 4.0f, 4.0f);
+		g->DrawRectangle(selectionPen, this->Right - 2.0f, this->Top - 2.0f, 4.0f, 4.0f);
+		g->DrawRectangle(selectionPen, this->Right - 2.0f, this->Bottom - 2.0f, 4.0f, 4.0f);
+		g->DrawRectangle(selectionPen, this->Left - 2.0f, this->Bottom - 2.0f, 4.0f, 4.0f);
 	}
 
 	void Figure::StartDrag(PointF^ point)

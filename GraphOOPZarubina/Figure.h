@@ -2,6 +2,7 @@
 #define FIGURE
 
 #include "Snapshot.h"
+#include "Settings.h"
 
 using namespace System;
 using namespace System::Collections;
@@ -34,7 +35,6 @@ namespace GraphicsCpp {
 	public:
 		virtual void UpdateCollisionShape();
 		array<PointF>^ collisionShape;
-		Pen^ selectionPen;
 
 		Figure();
 		Figure(System::Drawing::Color color, System::Drawing::Color borderColor);

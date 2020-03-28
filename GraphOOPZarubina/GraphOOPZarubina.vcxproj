@@ -145,6 +145,7 @@
     </ClInclude>
     <ClInclude Include="FigureRectangle.h" />
     <ClInclude Include="FigureAggregate.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="Snapshot.h" />
     <ClInclude Include="Caretaker.h" />
     <ClInclude Include="FigureTriangle.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="FigureAggregate.cpp" />
     <ClCompile Include="Caretaker.cpp" />
     <ClCompile Include="FigureTriangle.cpp" />
+    <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

@@ -45,7 +45,7 @@ namespace GraphicsCpp {
 		for each(Figure^ figure in this->figures) {
 			figure->DrawWithSelection(g);
 		}
-		g->DrawRectangle(this->selectionPen, this->Left, this->Top, this->width, this->height);
+		g->DrawRectangle(Settings::GetSelectionPen(), this->Left, this->Top, Width, Height);
 	}
 
 	void FigureAggregate::UpdateCollisionShape()
@@ -73,7 +73,7 @@ namespace GraphicsCpp {
 		{
 			figure->figures->Add(fig->Copy());
 		}
-		
+		figure->InitPositionOnCreate();
 		return (Figure^)figure;
 	}
 

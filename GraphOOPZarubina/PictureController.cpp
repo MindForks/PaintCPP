@@ -96,23 +96,6 @@ namespace GraphicsCpp {
 		}
 	}
 
-	void PictureController::UpdateSelectionPen(System::Drawing::Color newColor)
-	{
-		for (int i = 0; i < figures->Count; i++) {
-			figures[i]->selectionPen = gcnew Pen(newColor, 2);
-			figures[i]->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
-			FigureAggregate^ groupObject = dynamic_cast<FigureAggregate^>(figures[i]);
-			if (groupObject != nullptr)
-			{
-
-				for (int j = 0; j < groupObject->figures->Count; j++) {
-					groupObject->figures[j]->selectionPen = gcnew Pen(newColor, 2);
-					groupObject->figures[j]->selectionPen->DashCap = System::Drawing::Drawing2D::DashCap::Round;
-				}
-			}
-		}
-	}
-
 	void PictureController::SelectByIntersection(Figure^ figure) {
 		for each (Figure^ fig in this->figures) {
 			if (figure != fig && (figure->CheckColision(fig) || fig->CheckColision(figure))) {

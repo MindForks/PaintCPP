@@ -450,7 +450,6 @@ namespace GraphicsCpp {
 				last_figure->BorderWidth = trackBar1->Value;
 			}
 			controller->figures->Add(last_figure);
-			ckbTrace_CheckedChanged(sender, e);
 		}
 		controller->Refresh(false);
 		is_mouse_down = true;
@@ -633,13 +632,12 @@ namespace GraphicsCpp {
 	private: System::Void ckbTrace_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 
-		System::Drawing::Color color;
+		Color color;
 		if (ckbTrace->Checked)
-			color = System::Drawing::Color::Transparent;
+			color = Color::Transparent;
 		else
-			color = System::Drawing::Color::Blue;
-
-		controller->UpdateSelectionPen(color);
+			color = Color::Blue;
+		Settings::SetSelectionPenColor(color);
 	}
 };
 }
