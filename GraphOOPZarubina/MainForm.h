@@ -624,7 +624,7 @@ namespace GraphicsCpp {
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		controller->Explode();
-		controller->Refresh(false);
+		controller->Refresh(ckbTrace->Checked);
 	}
 	private: System::Void ckbMoveToBorders_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		timer1->Enabled = !timer1->Enabled;
