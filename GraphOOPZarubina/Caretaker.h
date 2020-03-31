@@ -1,6 +1,12 @@
 #pragma once
 
 #include "Figure.h";
+#include "FigureAggregate.h";
+#include "FigureRectangle.h";
+#include "FigureTriangle.h";
+#include "FigureEllipse.h";
+
+
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::Drawing::Drawing2D;
@@ -26,5 +32,7 @@ namespace GraphicsCpp {
 		}
 
 	};
+	std::ostream& operator<<(std::ostream& o_stream, const Figure^ r);
 
+	std::istream& operator>>(std::istream& i_stream, Figure^ r);
 }

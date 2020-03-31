@@ -2,7 +2,8 @@
 #include "Figure.h"
 
 namespace GraphicsCpp {
-	ref class FigureAggregate :
+	[SerializableAttribute]
+	public ref class FigureAggregate :
 		public Figure
 	{
 
@@ -14,6 +15,7 @@ namespace GraphicsCpp {
 		virtual void UpdateCollisionShape() override;
 
 		// properties:
+		[XmlIgnoreAttribute]
 		virtual property System::Drawing::Color Color {
 			virtual System::Drawing::Color get() override {
 				return this->figures[0]->Color;
@@ -25,7 +27,8 @@ namespace GraphicsCpp {
 				}
 			}
 		}
-
+		
+		[XmlIgnoreAttribute]
 		virtual property System::Drawing::Color BorderColor {
 			virtual System::Drawing::Color get()  override {
 				return this->figures[0]->BorderColor;
@@ -38,18 +41,7 @@ namespace GraphicsCpp {
 			}
 		}
 
-		virtual property float BorderWidth {
-			virtual float get()  override {
-				return this->figures[0]->BorderWidth;
-			}
-			virtual void set(float value) override {
-				for each (Figure^ figure in this->figures)
-				{
-					figure->BorderWidth = value;
-				}
-			}
-		}
-
+		[XmlIgnoreAttribute]
 		virtual property PointF^ Position {
 			virtual PointF^ get()  override {
 				return this->position;
@@ -60,6 +52,63 @@ namespace GraphicsCpp {
 					figure->Position = gcnew PointF(figure->Position->X + (value->X - this->position->X) , figure->Position->Y + (value->Y - this->position->Y));
 				}
 				this->position = value;
+			}
+		}
+
+		[XmlElementAttribute("PositionToSerialize")]
+		virtual property String^ PositionToSerialize {
+			virtual String^  get() override { 
+				return this->position->X + "," + this->position->Y;
+			}
+			virtual void set(String^  value) override {
+				auto pos = value->Split(',');
+				this->position->X = Convert::ToInt32(pos[0]);
+				this->position->Y = Convert::ToInt32(pos[1]);
+
+				for each (Figure^ figure in this->figures)
+				{
+					figure->Position = gcnew PointF(figure->Position->X, figure->Position->Y);
+				}
+			}
+		}
+
+		[XmlElementAttribute("ColorToSerialize")]
+		property System::String^ ColorToSerialize {
+			virtual System::String^ get() override {
+				return ColorTranslator::ToHtml(this->figures[0]->Color);
+			}
+			virtual void set(System::String^ value) override {
+				auto clr = ColorTranslator::FromHtml(value);
+				for each (Figure^ figure in this->figures)
+				{
+					figure->Color = clr;
+				}
+			}
+		}
+
+		[XmlElementAttribute("BorderColorToSerialize")]
+		property System::String^ BorderColorToSerialize {
+			virtual System::String^ get() override {
+				return ColorTranslator::ToHtml(this->figures[0]->BorderColor);
+			}
+			virtual void set(System::String^ value) override {
+				auto clr = ColorTranslator::FromHtml(value);
+				for each (Figure^ figure in this->figures)
+				{
+					figure->BorderColor = clr;
+				}
+			}
+		}
+		
+		virtual property float BorderWidth {
+			virtual float get()  override {
+				return this->figures[0]->BorderWidth;
+			}
+			virtual void set(float value) override {
+				for each (Figure^ figure in this->figures)
+				{
+					figure->BorderWidth = value;
+				}
 			}
 		}
 

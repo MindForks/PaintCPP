@@ -1,8 +1,8 @@
 #pragma once
 #include "Figure.h"
 namespace GraphicsCpp {
-
-	ref class FigureTriangle :
+	[SerializableAttribute]
+	public ref class FigureTriangle :
 		public Figure
 	{
 	public:

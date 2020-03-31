@@ -2,8 +2,8 @@
 #include "Figure.h"
 
 namespace GraphicsCpp {
-
-	ref class FigureEllipse :
+	[SerializableAttribute]
+	public ref class FigureEllipse :
 		public Figure
 	{
 	public:
