@@ -87,6 +87,8 @@ namespace GraphicsCpp {
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::CheckBox^  ckbMoveToBorders;
 	private: System::Windows::Forms::CheckBox^  ckbTrace;
+	private: System::Windows::Forms::Button^  btnDelFromList;
+
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -114,6 +116,7 @@ namespace GraphicsCpp {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->canvas = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->btnDelFromList = (gcnew System::Windows::Forms::Button());
 			this->ckbTrace = (gcnew System::Windows::Forms::CheckBox());
 			this->ckbMoveToBorders = (gcnew System::Windows::Forms::CheckBox());
 			this->ckbDiformate = (gcnew System::Windows::Forms::CheckBox());
@@ -158,6 +161,7 @@ namespace GraphicsCpp {
 			// 
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->panel1->Controls->Add(this->btnDelFromList);
 			this->panel1->Controls->Add(this->ckbTrace);
 			this->panel1->Controls->Add(this->ckbMoveToBorders);
 			this->panel1->Controls->Add(this->ckbDiformate);
@@ -179,6 +183,17 @@ namespace GraphicsCpp {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(341, 1004);
 			this->panel1->TabIndex = 6;
+			// 
+			// btnDelFromList
+			// 
+			this->btnDelFromList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->btnDelFromList->Location = System::Drawing::Point(224, 918);
+			this->btnDelFromList->Name = L"btnDelFromList";
+			this->btnDelFromList->Size = System::Drawing::Size(97, 79);
+			this->btnDelFromList->TabIndex = 16;
+			this->btnDelFromList->Text = L"Удалить";
+			this->btnDelFromList->UseVisualStyleBackColor = true;
+			this->btnDelFromList->Click += gcnew System::EventHandler(this, &MainForm::btnDelFromList_Click);
 			// 
 			// ckbTrace
 			// 
@@ -256,10 +271,10 @@ namespace GraphicsCpp {
 			// 
 			// btnLoadFromLst
 			// 
-			this->btnLoadFromLst->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->btnLoadFromLst->Location = System::Drawing::Point(175, 918);
+			this->btnLoadFromLst->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
+			this->btnLoadFromLst->Location = System::Drawing::Point(102, 918);
 			this->btnLoadFromLst->Name = L"btnLoadFromLst";
-			this->btnLoadFromLst->Size = System::Drawing::Size(150, 79);
+			this->btnLoadFromLst->Size = System::Drawing::Size(102, 79);
 			this->btnLoadFromLst->TabIndex = 9;
 			this->btnLoadFromLst->Text = L"Загрузить";
 			this->btnLoadFromLst->UseVisualStyleBackColor = true;
@@ -291,9 +306,9 @@ namespace GraphicsCpp {
 			// btnSaveSelected
 			// 
 			this->btnSaveSelected->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->btnSaveSelected->Location = System::Drawing::Point(11, 918);
+			this->btnSaveSelected->Location = System::Drawing::Point(9, 918);
 			this->btnSaveSelected->Name = L"btnSaveSelected";
-			this->btnSaveSelected->Size = System::Drawing::Size(152, 79);
+			this->btnSaveSelected->Size = System::Drawing::Size(85, 79);
 			this->btnSaveSelected->TabIndex = 7;
 			this->btnSaveSelected->Text = L"Сохранить";
 			this->btnSaveSelected->UseVisualStyleBackColor = true;
@@ -495,6 +510,7 @@ namespace GraphicsCpp {
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 		PictureController::InitInstance(canvas);
+		UpdateLstSnaphots();
 	}
 
 	private: System::Void MainForm_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
@@ -517,6 +533,7 @@ namespace GraphicsCpp {
 		}
 		controller->Refresh(false);
 	}
+	
 	private: System::Void btnBorder_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		colorDialog1->ShowDialog();
@@ -545,8 +562,6 @@ namespace GraphicsCpp {
 	private: System::Void btnClean_Click(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		controller->figures->Clear();
-		controller->snapCarateker = gcnew Caretaker();
-		lstSnapshots->Items->Clear();
 		controller->Refresh(false);
 	}
 
@@ -585,7 +600,7 @@ namespace GraphicsCpp {
 		PictureController^ controller = PictureController::GetInstance();
 		for (int i = 0; i < controller->figures->Count; i++) {
 			if (controller->figures[i]->IsSelected) {
-				System::String^ snapName =  "Item " + (controller->snapCarateker->SnaphotList->Count + 1);
+				System::String^ snapName =  (controller->snapCarateker->GetNextSaveName()).ToString();
 				controller->snapCarateker->AddSnaphot(controller->figures[i], snapName);
 			}
 		}
@@ -596,11 +611,11 @@ namespace GraphicsCpp {
 		if (this->lstSnapshots->SelectedIndex != -1)
 		{
 			PictureController^ controller = PictureController::GetInstance();
-			Snapshot^ snap = controller->snapCarateker->SnaphotList[lstSnapshots->SelectedIndex];
-			if (snap != nullptr)
+			
+			if (controller->snapCarateker->CheckIsFileExists((String^)lstSnapshots->SelectedItem))
 			{
 				controller->DeselectAll();
-				Figure^ figureToAdd = controller->snapCarateker->RestoreFromSnapshot(snap)->Copy();
+				Figure^ figureToAdd = controller->snapCarateker->RestoreFromSnapshot((String^)lstSnapshots->SelectedItem);
 				figureToAdd->IsSelected = true;
 				controller->figures->Add(figureToAdd);
 				controller->Refresh(false);
@@ -609,26 +624,40 @@ namespace GraphicsCpp {
 		}
 	}
 	
+	private: System::Void btnDelFromList_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (this->lstSnapshots->SelectedIndex != -1)
+		{
+			PictureController^ controller = PictureController::GetInstance();
+
+			if (controller->snapCarateker->CheckIsFileExists((String^)lstSnapshots->SelectedItem))
+			{
+				controller->snapCarateker->DeleteSnaphot((String^)lstSnapshots->SelectedItem);
+				UpdateLstSnaphots();
+			}
+		}
+	}
+
 	private: void UpdateLstSnaphots()
 	{
 		PictureController^ controller = PictureController::GetInstance();
 		this->lstSnapshots->Items->Clear();
 
-		for(int i = 0; i < controller->snapCarateker->SnaphotList->Count; i++)
-		{
-			Snapshot^ item = controller->snapCarateker->SnaphotList[i];
-			this->lstSnapshots->Items->Add((i+1) + ". " +item->snapName);
+		for each (String^ name in controller->snapCarateker->GetSavedSnapshotsName()) {
+			this->lstSnapshots->Items->Add(name);
 			this->lstSnapshots->SelectedIndex = -1;
 		}
 	}
+	
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 		controller->Explode();
 		controller->Refresh(ckbTrace->Checked);
 	}
+	
 	private: System::Void ckbMoveToBorders_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		timer1->Enabled = !timer1->Enabled;
 	}
+	
 	private: System::Void ckbTrace_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		PictureController^ controller = PictureController::GetInstance();
 

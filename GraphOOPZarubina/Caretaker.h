@@ -16,23 +16,16 @@ namespace GraphicsCpp {
 	public ref class Caretaker
 	{
 	private:
-		List<Snapshot^>^ snaphotList;
-
+		void CheckAndCreateDirectory();
 	public:
-		Caretaker()
-		{
-			this->snaphotList = gcnew List<Snapshot^>();
-		}
-		void AddSnaphot(Figure^ figure, System::String^ snapshotName);
-		Figure^ RestoreFromSnapshot(Snapshot^ snap);
+		Caretaker() {};
 
-		//properties
-		property List<Snapshot^>^ SnaphotList {
-			List<Snapshot^>^ get() { return this->snaphotList; }
-		}
-
+		void AddSnaphot(Figure^ figure, String^ snapshotName);
+		void DeleteSnaphot(String^ snapshotName);
+		Figure^ RestoreFromSnapshot(String^ snapshotName);
+		
+		List<String^>^ GetSavedSnapshotsName();
+		bool CheckIsFileExists(String^ snapshotName);
+		int GetNextSaveName();
 	};
-	std::ostream& operator<<(std::ostream& o_stream, const Figure^ r);
-
-	std::istream& operator>>(std::istream& i_stream, Figure^ r);
 }

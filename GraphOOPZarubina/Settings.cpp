@@ -9,3 +9,13 @@ void GraphicsCpp::Settings::SetSelectionPenColor(Color color)
 {
 	selectionPen->Color = color;
 }
+
+String ^ GraphicsCpp::Settings::GetSerializationFilePath()
+{
+	return serializationFilePath;
+}
+
+String ^ GraphicsCpp::Settings::GetSerializationFileExtenstion()
+{
+	return serializationFileExtenstion;
+}
