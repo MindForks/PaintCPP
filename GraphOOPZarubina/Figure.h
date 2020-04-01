@@ -13,16 +13,9 @@ using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::Drawing::Drawing2D;
 using namespace System::Xml::Serialization;
-namespace GraphicsCpp {
-	ref class FigureTriangle;
-	ref class FigureRectangle;
-	ref class FigureAggregate;
-	ref class FigureEllipse;
 
-	[XmlIncludeAttribute(FigureTriangle::typeid)]
-	[XmlIncludeAttribute(FigureRectangle::typeid)]
-	[XmlIncludeAttribute(FigureAggregate::typeid)]
-	[XmlIncludeAttribute(FigureEllipse::typeid)]
+namespace GraphicsCpp {
+
 	[SerializableAttribute]
 	public ref class Figure // composite
 	{
